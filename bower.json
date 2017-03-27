@@ -1,0 +1,23 @@
+{
+  "name": "file_struc",
+  "homepage": "https://github.com/noahneumark/DojoAssignments",
+  "authors": [
+    "Noah Neumark <noahneumark@gmail.com>"
+  ],
+  "description": "",
+  "main": "",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "^1.6.3",
+    "angular-route": "^1.6.3",
+    "angular-messages": "^1.6.3",
+    "bootstrap": "^3.3.7"
+  }
+}
