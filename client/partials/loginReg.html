@@ -1,0 +1,18 @@
+<form name='register'>
+  Name: <input type='text' ng-model='newUser.name' ng-minlength='2' required>
+  Email: <input type='email' ng-model='newUser.email' required>
+  State (optional): <input type='text' ng-model='newUser.state'>
+  Zip Code: <input type='number' ng-model='newUser.zipCode' required>
+  Password: <input type='password' ng-model='newUser.password'>
+  Confirm Password: <input type='password' ng-model='confirmPw' ng-match='newUser.password'>
+  <button ng-click='addUser(newUser)'>Register</button>
+</form>
+<form name='login'>
+  Email: <input type='email' ng-model='existingUser.email' required>
+  Password: <input type='password' ng-model='existingUser.password'>
+  <button ng-click='userLogin(existingUser)'>Login</button>
+</form>
+<div ng-messages='register.newUser.$error'>
+  <div ng-message='required'>Blank field(s)</div>
+  <div ng-message='minlength'>Entry too short</div>
+</div>
