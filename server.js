@@ -26,6 +26,8 @@ app.use(session(sessionConfig));
 require('./server/config/mongoose.js');
 require('./server/config/routes.js')(app);
 
-app.listen( port, function() {
+var server = app.listen( port, function() {
   console.log( `server running on port ${ port }` );
 });
+
+var io = require('socket.io').listen(server);
