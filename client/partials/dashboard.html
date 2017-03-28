@@ -1,45 +1,126 @@
-<a href='/logout'>Logout</a> | <a href='#!/groups/all'>Display all groups</a> | <a href='#!/groups/new'>Create a new group</a>
-<h1>Hello, {{currentUser.name}}!</h1>
-<h3>List of groups you are an admin of</h3>
-<table class='table'>
-  <thead>
-    <th>Group Name</th>
-    <th>Description</th>
-  </thead>
-  <tr ng-repeat='group in adminUser.admin'>
-    <th><a href='#!/groups/show/{{group._id}}'>{{group.name}}</a></th>
-    <th>{{group.description}}</th>
-  </tr>
-</table>
-<h3>List of groups you are following</h3>
-<table class='table'>
-  <thead>
-    <th>Group Name</th>
-    <th>Description</th>
-  </thead>
-  <tr ng-repeat='group in followUser.following'>
-    <th><a href='#!/groups/show/{{group._id}}'>{{group.name}}</a></th>
-    <th>{{group.description}}</th>
-  </tr>
-</table>
-<h3>List of groups you are a member of</h3>
-<table class='table'>
-  <thead>
-    <th>Group Name</th>
-    <th>Description</th>
-  </thead>
-  <tr ng-repeat='group in memberUser.memberships'>
-    <th><a href='#!/groups/show/{{group._id}}'>{{group.name}}</a></th>
-    <th>{{group.description}}</th>
-  </tr>
-</table>
-<h2>Groups are dropdowns</h2>
-<h3>My Votes</h3>
-<p>Group Name | Item | Vote</p>
-<p>Any group you are a member of displays a list of votes that you can vote on</p>
-<h3>Admin</h3>
-<h3>Separate page for displaying all groups you are able to follow</h3>
-<p>Possible solution(s): disable follow button</p>
-<h3>Membership</h3>
-<h3>Endorsements</h3>
-<h3>Chatroom</h3>
+<div class="row fluid">
+    <div class="col-sm-12">
+        <nav class="navbar navbar-default">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <a class="navbar-brand"><span class="text-primary">VOTERGAB &mdash; {{currentUser.name}}</span></a>
+                </div>
+                <div class="collapse navbar-collapse">
+                    <ul class="nav navbar-nav pull-left">
+                        <li class="active"><a href="#!/dashboard"><span class="text-primary">Dashboard</span></a></li>
+                        <li><a href="#!/dashboard"><span class="text-primary">Find Groups</span></a></li>
+                    </ul>
+                    <ul class="nav navbar-nav pull-right">
+                        <li class="dropdown"><a href="#!/dashboard" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" id="mygroups"><span class="text-primary">My Follows</span> <span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li ng-repeat='group in followUser.following'><a href='#!/groups/show/{{group._id}}'>{{group.name}}</a></li>
+                                <!-- ON HOVER, show {{group.description}} on left? -->
+                            </ul>
+                        </li>
+
+                        <li class="dropdown"><a href="#!/dashboard" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" id="mygroups"><span class="text-primary">My Groups</span> <span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li ng-repeat="group in adminUser.admin"><a href='#!/groups/show/{{group._id}}'>{{group.name}}</a></li>
+                                <li role="separator" class="divider"></li>
+                                <li ng-repeat="group in memberUser.memberships"><a href='#!/groups/show/{{group._id}}'>{{group.name}}</a></li>
+                                <!-- ON HOVER, show {{group.description}} on left? -->
+                            </ul>
+                        </li>
+                        <li><a href="/logout" class="navbar-right"><span class="text-danger">Logout</span></a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </div>
+</div>
+<div class="row-fluid">
+    <div class="col-sm-5">
+        <h2 class="text-primary">My Votes</h2>
+        <table class="table table-bordered table-striped table-hover table-nonfluid">
+            <thead>
+                <tr>
+                    <th>Group</th>
+                    <th>Item</th>
+                    <th>Vote</th>
+                </tr>
+            </thead>
+            <tbody class="text-primary">
+                <tr>
+                    <td class="h4">GROUP_NAME</td>
+                    <td class="h4">ITEM_NAME</a></td>
+                    <td>
+                        <button class='btn btn-success btn-sm' role='button'>Vote</button>
+                        <button class='btn btn-danger btn-sm' role='button'>Veto</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="col-sm-7">
+        <div class="col-sm-12">
+            <h2 class="text-primary">Endorsement Feed</h2>
+        </div>
+        <div class="col-sm-12">
+            <h1 class="text-primary lead">Lobby Chat</h2>
+        </div>
+    </div>
+</div>
+
+
+<br class="h1"/>
+<br class="h1"/>
+<br class="h1"/>
+<br class="h1"/>
+<br class="h1"/>
+<br class="h1"/>
+<br class="h1"/>
+<br class="h1"/>
+<br class="h1"/>
+<br class="h1"/>
+<div id="oldstuff">
+    <a href='#!/groups/all'>Display all groups</a> | <a href='#!/groups/new'>Create a new group</a>
+    <h1>Hello, {{currentUser.name}}!</h1>
+    <h3>List of groups you are an admin of</h3>
+    <table class='table'>
+      <thead>
+        <th>Group Name</th>
+        <th>Description</th>
+      </thead>
+      <tr ng-repeat='group in adminUser.admin'>
+        <th><a href='#!/groups/show/{{group._id}}'>{{group.name}}</a></th>
+        <th>{{group.description}}</th>
+      </tr>
+    </table>
+    <h3>List of groups you are following</h3>
+    <table class='table'>
+      <thead>
+        <th>Group Name</th>
+        <th>Description</th>
+      </thead>
+      <tr ng-repeat='group in followUser.following'>
+        <th><a href='#!/groups/show/{{group._id}}'>{{group.name}}</a></th>
+        <th>{{group.description}}</th>
+      </tr>
+    </table>
+    <h3>List of groups you are a member of</h3>
+    <table class='table'>
+      <thead>
+        <th>Group Name</th>
+        <th>Description</th>
+      </thead>
+      <tr ng-repeat='group in memberUser.memberships'>
+        <th><a href='#!/groups/show/{{group._id}}'>{{group.name}}</a></th>
+        <th>{{group.description}}</th>
+      </tr>
+    </table>
+    <h3>My Votes</h3>
+    <p>Group Name | Item | Vote</p>
+    <p>Any group you are a member of displays a list of votes that you can vote on</p>
+    <h3>Admin</h3>
+    <h3>Separate page for displaying all groups you are able to follow</h3>
+    <p>Possible solution(s): disable follow button</p>
+    <h3>Membership</h3>
+    <h3>Endorsements</h3>
+    <h3>Chatroom</h3>
+
+</div>
