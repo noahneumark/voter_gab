@@ -1,2 +1,34 @@
-<a href='/logout'>Logout</a>
+<a href='/logout'>Logout</a> | <a href='#!/groups/all'>Display all groups</a> | <a href='#!/groups/new'>Create a new group</a>
 <h1>Hello, {{currentUser.name}}!</h1>
+<h3>List of groups you are following</h3>
+<table class='table'>
+  <thead>
+    <th>Group Name</th>
+    <th>Description</th>
+  </thead>
+  <tr ng-repeat='group in followUser.following'>
+    <th><a href='#!/groups/show/{{group._id}}'>{{group.name}}</a></th>
+    <th>{{group.description}}</th>
+  </tr>
+</table>
+<h3>List of groups you are a member of</h3>
+<table class='table'>
+  <thead>
+    <th>Group Name</th>
+    <th>Description</th>
+  </thead>
+  <tr ng-repeat='group in memberUser.memberships'>
+    <th><a href='#!/groups/show/{{group._id}}'>{{group.name}}</a></th>
+    <th>{{group.description}}</th>
+  </tr>
+</table>
+<h2>Groups are dropdowns</h2>
+<h3>My Votes</h3>
+<p>Group Name | Item | Vote</p>
+<p>Any group you are a member of displays a list of votes that you can vote on</p>
+<h3>Admin</h3>
+<h3>Separate page for displaying all groups you are able to follow</h3>
+<p>Possible solution(s): disable follow button</p>
+<h3>Membership</h3>
+<h3>Endorsements</h3>
+<h3>Chatroom</h3>
