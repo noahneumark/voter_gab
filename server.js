@@ -24,10 +24,17 @@ app.use( bp.json() );
 app.use(session(sessionConfig));
 
 require('./server/config/mongoose.js');
-require('./server/config/routes.js')(app);
 
 var server = app.listen( port, function() {
   console.log( `server running on port ${ port }` );
 });
 
 var io = require('socket.io').listen(server);
+require('./server/config/routes.js')(app,server);
+// socket listening to connections
+io.on('connection',function(socket){
+    socket.on('new_message',function(data){
+      console.log("***************************** IO CONNECTED *****************************");
+      io.emit("post_new_message",{new_message:data.message});
+    })
+});

@@ -6,12 +6,11 @@
     <script src="jquery/dist/jquery.min.js"></script>
     <script src="bootstrap/dist/js/bootstrap.js"></script>
     <link rel='stylesheet' type='text/css' href='bootstrap/dist/css/bootstrap.css'>
+    <link rel='stylesheet' type='text/css' href='../static/css/master.css'>
     <script src='angular/angular.js' charset='utf-8'></script>
     <script src='angular-route/angular-route.js' charset='utf-8'></script>
     <script src='angular-messages/angular-messages.js' charset='utf-8'></script>
     <script src='assets/app.js' charset='utf-8'></script>
-    <script src='assets/controllers/apiFactory.js' charset='utf-8'></script>
-    <script src='assets/controllers/apiController.js' charset='utf-8'></script>
     <script src='assets/controllers/loginRegController.js' charset='utf-8'></script>
     <script src='assets/controllers/homeController.js' charset='utf-8'></script>
     <script src='assets/controllers/dashboardController.js' charset='utf-8'></script>
@@ -20,9 +19,13 @@
     <script src='assets/controllers/allGroupsController.js' charset='utf-8'></script>
     <script src='assets/factories/userFactory.js' charset='utf-8'></script>
     <script src='assets/factories/groupFactory.js' charset='utf-8'></script>
+    <!-- Socket Script -->
+    <script type='text/javascript' src='/socket.io/socket.io.js'></script>
+    <script type='text/javascript' src='../static/js/message.js'></script>
+    
   </head>
 	<body>
-        <div class="container-fluid">
+        <div class="container-fluid" id="wrapper">
             <div ng-view="">
             </div>
         </div>

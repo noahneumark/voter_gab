@@ -31,4 +31,37 @@
 <p>Possible solution(s): disable follow button</p>
 <h3>Membership</h3>
 <h3>Endorsements</h3>
-<h3>Chatroom</h3>
+<script>
+$(document).ready(function(){
+  console.log('asdf');
+  var socket = io.connect();
+  // socket.on('load_messages',function(data){
+  //   $('#error').html('');
+  //   current_user = data.current_user;
+  //   var messages = data.messages;
+  //   var messages_thread ="";
+  //   for(var i =0; i < messages.length;i++){
+  //     messages_thread = '<p' + messages[i].name + ': ' + messages[i].message + '</p>';
+  //   $('#board').append(messages_thread);
+  // }
+  // })
+  // return false;
+  $('#clickme').click(function(){
+    socket.emit('new_message',{message: $('#message').val()});
+    return false;
+  })
+  socket.on('post_new_message',function(data){
+    $('#message_log').append('<p>' + data.new_message + '</p>');
+  })
+
+})
+
+</script>
+<div id="mssg-container">
+  <legend>Chatroom</legend>
+  <div id="message_log"></div>
+  <form id="new_message">
+    <textarea id="message"></textarea>
+    <input type="submit" value="submit" id="clickme">
+  </form>
+</div>

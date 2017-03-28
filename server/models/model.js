@@ -30,9 +30,19 @@ var EndorsementSchema = mongoose.Schema({
   status: {type: String, required: true}
 }, {timestamps: true});
 
+// CHAT CHEMA
+var ChatSchema = mongoose.Schema({
+  user: {type:Schema.Types.ObjectId,ref:'User'},
+  message: {type:String},
+  _group: {type:Schema.Types.ObjectId,ref:'Group'},
+},{timestamps: true});
+
+
 mongoose.model('User', UserSchema);
 mongoose.model('Group', GroupSchema);
 mongoose.model('Endorsement', EndorsementSchema);
+// assigning chat schema as a model
+mongoose.model('Chat',ChatSchema);
 GroupSchema.plugin(deepPopulate);
 UserSchema.plugin(deepPopulate);
 EndorsementSchema.plugin(deepPopulate);
