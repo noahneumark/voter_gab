@@ -16,9 +16,16 @@ app.controller('DashboardController', ['$scope', '$routeParams', 'UserFactory', 
       $scope.memberUser = user;
     })
   }
+  function getUserAdmins() {
+    GroupFactory.getAdminsGroups(function(user) {
+      console.log('user in groupfactory', user);
+      $scope.adminUser = user;
+    })
+  }
   getCurrentUser();
   getUserFollows();
   getUserMemberships();
+  getUserAdmins();
   $scope.follow = function(id) {
     GroupFactory.follow(id);
   }
