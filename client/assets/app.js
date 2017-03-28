@@ -18,6 +18,10 @@ app.config(function($routeProvider) {
       templateUrl: 'partials/newGroup.html',
       controller: 'NewGroupController'
     })
+    .when('/groups/all', {
+      templateUrl: 'partials/allGroups.html',
+      controller: 'AllGroupsController'
+    })
     .when('/groups/show/:id', {
       templateUrl: 'partials/group.html',
       controller: 'GroupController'

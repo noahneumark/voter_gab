@@ -1,0 +1,13 @@
+<h3>List of all groups</h3>
+<table class='table'>
+  <thead>
+    <th>Group Name</th>
+    <th>Description</th>
+    <th>Actions</th>
+  </thead>
+  <tr ng-repeat='group in groups'>
+    <td>{{group.name}}</td>
+    <td>{{group.description}}</td>
+    <th><button ng-click='follow(group._id)'>Follow</button></th>
+  </tr>
+</table>

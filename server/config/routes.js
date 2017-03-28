@@ -11,6 +11,8 @@ module.exports = function(app) {
   app.get('/current', users.current);
   app.get('/groups', groups.index);
   app.post('/groups', groups.create);
+  app.get('/groups/following', groups.following);
+  app.get('/groups/memberships', groups.memberships);
   app.put('/groups/:id/follow', groups.follow);
   app.get('/groups/:id', groups.show);
 }

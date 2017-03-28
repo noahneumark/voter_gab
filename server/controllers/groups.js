@@ -13,6 +13,27 @@ module.exports = {
       }
     })
   },
+  following: function(req, res) {
+    User.findOne({_id: req.session.user._id}).populate('following').exec(function(err, data) {
+      console.log('data in groups factory', data);
+      if (err) {
+        res.status(400).send('Could not fetch user data');
+      }
+      else {
+        res.json(data);
+      }
+    })
+  },
+  memberships: function(req, res) {
+    User.findOne({_id: req.session.user._id}).populate('memberships').exec(function(err, data) {
+      if (err) {
+        res.status(400).send('Could not fetch user data');
+      }
+      else {
+        res.json(data);
+      }
+    })
+  },
   create: function(req, res) {
     console.log('session user id', req.session.user._id);
     User.findOne({_id: req.session.user._id}, function(err, user) {

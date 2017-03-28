@@ -5,14 +5,20 @@ app.controller('DashboardController', ['$scope', '$routeParams', 'UserFactory', 
       $scope.currentUser = user;
     })
   }
-  function getGroups() {
-    GroupFactory.getGroups(function(groups) {
-      console.log('the groups', groups);
-      $scope.groups = groups;
+  function getUserFollows() {
+    GroupFactory.getFollowingGroups(function(user) {
+      console.log('the user', user);
+      $scope.followUser = user;
+    })
+  }
+  function getUserMemberships() {
+    GroupFactory.getMembershipGroups(function(user) {
+      $scope.memberUser = user;
     })
   }
   getCurrentUser();
-  getGroups();
+  getUserFollows();
+  getUserMemberships();
   $scope.follow = function(id) {
     GroupFactory.follow(id);
   }

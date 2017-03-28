@@ -8,9 +8,25 @@ app.factory('GroupFactory', ['$location', '$http', function($location, $http) {
       callback(res.data);
     })
   }
-  factory.getGroups = function(callback) {
+  factory.getAllGroups = function(callback) {
     $http({
       url: '/groups',
+      method: 'GET'
+    }).then(function(res) {
+      callback(res.data);
+    })
+  }
+  factory.getMembershipGroups = function(callback) {
+    $http({
+      url: '/groups/memberships',
+      method: 'GET'
+    }).then(function(res) {
+      callback(res.data);
+    })
+  }
+  factory.getFollowingGroups = function(callback) {
+    $http({
+      url: '/groups/following',
       method: 'GET'
     }).then(function(res) {
       callback(res.data);
