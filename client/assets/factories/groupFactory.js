@@ -46,7 +46,6 @@ app.factory('GroupFactory', ['$location', '$http', function($location, $http) {
       method: 'POST',
       data: group
     }).then(function(res) {
-      console.log('successfully created group');
       $location.url('/dashboard');
     }, function(res) {
       console.log(res);
@@ -57,8 +56,15 @@ app.factory('GroupFactory', ['$location', '$http', function($location, $http) {
       url: '/groups/' + id + '/follow',
       method: 'PUT'
     }).then(function(res) {
-      console.log(res);
       $location.url('/groups/show/' + id);
+    })
+  }
+  factory.unfollow = function(id) {
+    $http({
+      url: '/groups/' + id + '/unfollow',
+      method: 'PUT'
+    }).then(function(res) {
+      $location.url('/dashboard');
     })
   }
   return factory;

@@ -15,7 +15,6 @@ module.exports = {
   },
   following: function(req, res) {
     User.findOne({_id: req.session.user._id}).populate('following').exec(function(err, data) {
-      console.log('data in groups factory', data);
       if (err) {
         res.status(400).send('Could not fetch user data');
       }
@@ -45,7 +44,6 @@ module.exports = {
     })
   },
   create: function(req, res) {
-    console.log('session user id', req.session.user._id);
     User.findOne({_id: req.session.user._id}, function(err, user) {
       if (err) {
         res.status(400).send('User not found');
@@ -79,9 +77,7 @@ module.exports = {
     })
   },
   show: function(req, res) {
-    //Group.findOne({_id: req.params.id}, function(err, group) {
     Group.findOne({_id: req.params.id}).populate('admins').populate('members').populate('followers').exec(function(err, group) {
-      console.log('group in server controller is', group);
       if (err) {
         res.status(400).send('Group not found');
       }
@@ -95,7 +91,7 @@ module.exports = {
       User.findOne({_id: req.session.user._id}, function(err, user) {
         user.following.push(group._id);
         user.save(function(err) {
-          group.members.push(req.session.user._id);
+          group.followers.push(req.session.user._id);
           group.save(function(err) {
             if(err) {
               res.status(400).send('User did not follow group');
@@ -106,6 +102,23 @@ module.exports = {
           })
         })
       })
+    })
+  },
+  unfollow: function(req, res) {
+    Group.update({_id: req.params.id}, {$pull: {followers: req.session.user._id}}, function(err, group) {
+      if (err) {
+        res.status(400).send('Could not update group');
+      }
+      else {
+        User.update({_id: req.session.user._id}, {$pull: {following: req.params.id}}, function(err, user) {
+          if (err) {
+            res.status(400).send('Could not update user');
+          }
+          else {
+            res.sendStatus(200, 'User successfully unfollow group');
+          }
+        })
+      }
     })
   }
 }
