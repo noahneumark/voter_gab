@@ -1,7 +1,6 @@
 app.factory('UserFactory', ['$location', '$http', function($location, $http) {
   var factory = {};
   factory.newUser = function(user) {
-    console.log('user in factory', user);
     $http({
       url: '/register',
       method: 'POST',
