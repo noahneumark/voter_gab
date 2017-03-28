@@ -1,0 +1,11 @@
+<a href='#!/dashboard'>Home</a>
+<h1>Group Name: {{group.name}}</h1>
+<h2>Group Description: {{group.description}}</h2>
+<h3>Admins</h3>
+<div ng-repeat='admin in group.admins'>
+  <p>{{admin.name}}</p>
+</div>
+<h3>Members</h3>
+<div ng-repeat='member in group.members'>
+  <p>{{member.name}}</p>
+</div>

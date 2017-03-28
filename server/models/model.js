@@ -14,6 +14,7 @@ var UserSchema = mongoose.Schema({
 
 var GroupSchema = mongoose.Schema({
   name: {type: String, required: true, minlength: 2},
+  description: {type: String, required: true, minlength: 1},
   admins: [{type: Schema.Types.ObjectId, ref: 'User'}],
   members: [{type: Schema.Types.ObjectId, ref: 'User'}],
   endorsements: [{type: Schema.Types.ObjectId, ref: 'Endorsement'}]

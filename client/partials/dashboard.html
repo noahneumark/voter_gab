@@ -1,2 +1,26 @@
-<a href='/logout'>Logout</a>
+<a href='/logout'>Logout</a> | <a href='#!/groups/new'>Create a new group</a>
 <h1>Hello, {{currentUser.name}}!</h1>
+<h3>List of all groups</h3>
+<table class='table'>
+  <thead>
+    <th>Group Name</th>
+    <th>Description</th>
+    <th>Actions</th>
+  </thead>
+  <tr ng-repeat='group in groups'>
+    <th><a href='#!/groups/show/{{group._id}}'>{{group.name}}</a></th>
+    <th>{{group.description}}</th>
+    <th><button ng-click='follow(group._id)'>Follow</button></th>
+  </tr>
+</table>
+<h3>List of groups you are following</h3>
+<table class='table'>
+  <thead>
+    <th>Group Name</th>
+    <th>Description</th>
+  </thead>
+  <tr>
+    <td>Test Name</td>
+    <td>Test Description</td>
+  </tr>
+</table>

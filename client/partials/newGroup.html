@@ -1,0 +1,20 @@
+<a href='#!/dashboard'>Home</a>
+<h1>Create a New Group</h1>
+<form name='createGroup'>
+  <div class='form-group row'>
+    <label class='col-sm-2 col-form-label'>Name:</label>
+    <div class='col-sm-3'>
+      <input class='form-control' type='text' ng-model='newGroup.name' ng-minlength='2' required>
+    </div>
+    <br class='h1'>
+    <label class='col-sm-2 col-form-label'>Description:</label>
+    <div class='col-sm-3'>
+      <input class='form-control' type='text' ng-model='newGroup.description' ng-minlength='1' required>
+    </div>
+    <br class='h1'>
+    <p class='col-sm-6 col-sm-offset-4'>
+      <button class='btn btn-primary btn-md' ng-click='addGroup(newGroup)' role='button'>Submit</button>
+      <button class='btn btn-danger btn-md' ng-click='resetForm()' role='button'>Reset</button>
+    </p>
+  </div>
+</form>
