@@ -1,4 +1,40 @@
-<a href='/logout'>Logout</a> | <a href='#!/groups/all'>Display all groups</a> | <a href='#!/groups/new'>Create a new group</a>
+<div class="row fluid">
+    <div class="col-sm-12">
+        <nav class="navbar navbar-default">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <a class="navbar-brand"><span class="text-primary">Votergab &mdash; {{currentUser.name}}</span></a>
+                </div>
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <ul class="nav navbar-nav pull-right">
+                        <li class="active"><a href="#!/dashboard"><span class="text-primary">Dashboard</span></a></li>
+                        <li class="dropdown"><a href="#!/" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" id="mygroups">My Follows <span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li ng-repeat='group in followUser.following'><a href='#!/groups/show/{{group._id}}'>{{group.name}}</a></li>
+                                <!-- ON HOVER, show {{group.description}} on left? -->
+                            </ul>
+                        </li>
+
+                        <li class="dropdown"><a href="#!/" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" id="mygroups">My Groups <span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li ng-repeat="group in memberUser.memberships"><a href='#!/groups/show/{{group._id}}'>{{group.name}}</a></li>
+                                <!-- ON HOVER, show {{group.description}} on left? -->
+                                <li role="separator" class="divider"></li>
+                                <li><a href="#">Regular memberships here</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="/logout" class="navbar-right"><span class="text-danger">Logout</span></a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </div>
+</div>
+
+
+
+
+<a href='#!/groups/all'>Display all groups</a> | <a href='#!/groups/new'>Create a new group</a>
 <h1>Hello, {{currentUser.name}}!</h1>
 <h3>List of groups you are following</h3>
 <table class='table'>
