@@ -4,28 +4,28 @@ var User = mongoose.model('User');
 
 module.exports = {
   index: function(req, res) {
-    User.find({}, function(err, data) {
+    User.find({}, function(err, users) {
       if (err) {
-        res.status(400).send('Something went wrong');
+        res.status(400).send('Cannot fetch users');
       }
       else {
-        res.json(data);
+        res.json(users);
       }
     })
   },
   register: function(req, res) {
-    User.findOne({email: req.body.email}, function(err, data) {
-      if (data == null) {
+    User.findOne({email: req.body.email}, function(err, user) {
+      if (!user) {
         var salt = bcrypt.genSaltSync(10);
         var hash = bcrypt.hashSync(req.body.password, salt);
         req.body.password = hash;
         var user = new User(req.body);
-        user.save(function(err, data) {
+        user.save(function(err, newUser) {
           if (err) {
             res.status(400).send('User was not saved into the database');
           }
           else {
-            req.session.user = data;
+            req.session.user = newUser;
             res.sendStatus(200, 'Registration successful');
           }
         })

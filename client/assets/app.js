@@ -2,6 +2,10 @@ var app = angular.module('app', ['ngRoute', 'ngMessages']);
 app.config(function($routeProvider) {
   $routeProvider
     .when('/', {
+      templateUrl: 'partials/home.html',
+      controller: 'HomeController'
+    })
+    .when('/login', {
       templateUrl: 'partials/loginReg.html',
       controller: 'LoginRegController'
     })
