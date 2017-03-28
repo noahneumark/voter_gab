@@ -13,10 +13,6 @@ app.config(function($routeProvider) {
       templateUrl: 'partials/dashboard.html',
       controller: 'DashboardController'
     })
-    .when('/api', {
-      templateUrl: 'partials/api.html',
-      controller: 'APIController'
-    })
     .otherwise({
       redirectTo: '/'
     })
