@@ -13,6 +13,7 @@ module.exports = function(app) {
   app.post('/groups', groups.create);
   app.get('/groups/following', groups.following);
   app.get('/groups/memberships', groups.memberships);
+  app.get('/groups/admins', groups.admins);
   app.put('/groups/:id/follow', groups.follow);
   app.get('/groups/:id', groups.show);
 }

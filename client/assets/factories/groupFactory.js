@@ -24,6 +24,14 @@ app.factory('GroupFactory', ['$location', '$http', function($location, $http) {
       callback(res.data);
     })
   }
+  factory.getAdminsGroups = function(callback) {
+    $http({
+      url: '/groups/admins',
+      method: 'GET'
+    }).then(function(res) {
+      callback(res.data);
+    })
+  }
   factory.getFollowingGroups = function(callback) {
     $http({
       url: '/groups/following',

@@ -8,6 +8,7 @@ var UserSchema = mongoose.Schema({
   state: {type: String, minlength: 2},
   zipCode: {type: Number, required: true},
   password: {type: String, required: true},
+  admin: [{type: Schema.Types.ObjectId, ref: 'Group'}],
   memberships: [{type: Schema.Types.ObjectId, ref: 'Group'}],
   following: [{type: Schema.Types.ObjectId, ref: 'Group'}]
 }, {timestamps: true});
