@@ -1,3 +1,4 @@
+<a href='#!/dashboard'>Home</a> | <a href='#!/groups/new'>Create a new group</a>
 <h3>List of all groups</h3>
 <table class='table'>
   <thead>
@@ -6,8 +7,11 @@
     <th>Actions</th>
   </thead>
   <tr ng-repeat='group in groups'>
-    <td>{{group.name}}</td>
+    <th><a href='#!/groups/show/{{group._id}}'>{{group.name}}</a></th>
     <td>{{group.description}}</td>
-    <th><button ng-click='follow(group._id)'>Follow</button></th>
+    <th>
+      <button ng-if='!group.followers.includes(currentUser._id)' ng-click='follow(group._id)'>Follow</button>
+      <button ng-if='group.followers.includes(currentUser._id)' ng-click='unfollow(group._id)'>Unfollow</button>
+    </th>
   </tr>
 </table>
