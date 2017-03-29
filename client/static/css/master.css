@@ -2,6 +2,7 @@
   width:100%;
 }
 #message_log{
-  height: 250px;
+  height: 172px;
   overflow: scroll;
+  padding:10px;
 }
