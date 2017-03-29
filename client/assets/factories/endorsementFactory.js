@@ -1,15 +1,23 @@
 app.factory('EndorsementFactory', ['$location', '$http', function($location, $http) {
   var factory = {};
-  factory.newEndorsement = function(endorsement) {
+  factory.getEndorsements = function(endorsements, callback) {
     $http({
       url: '/endorsements',
       method: 'POST',
-      data: endorsement
+      data: endorsements
     }).then(function(res) {
-      console.log('da res data is dis dawg', res);
-      $location.url('/dashboard');
+      callback(res.data);
     }, function(res) {
       console.log(res);
+    })
+  }
+  factory.proposeEndorsement = function(id, endorsement) {
+    $http({
+      url: '/groups/endorsements/'+id+'/propose',
+      method: 'POST',
+      data: endorsement
+    }).then(function(res) {
+      $location.url('/groups/show/'+id);
     })
   }
   return factory;

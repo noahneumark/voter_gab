@@ -19,5 +19,6 @@ module.exports = function(app,server) {
   app.put('/groups/:id/follow', groups.follow);
   app.put('/groups/:id/unfollow', groups.unfollow);
   app.get('/groups/:id', groups.show);
-  app.post('/endorsements', endorsements.create);
+  app.post('/endorsements', endorsements.get);
+  app.post('/groups/endorsements/:id/propose', endorsements.propose);
 }
