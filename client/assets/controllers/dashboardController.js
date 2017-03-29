@@ -1,5 +1,4 @@
-app.controller('DashboardController', ['$scope', '$routeParams', 'UserFactory', 'GroupFactory', function($scope, $routeParams, UserFactory, GroupFactory) {
-  
+app.controller('DashboardController', ['$scope', '$routeParams', 'UserFactory', 'GroupFactory', 'EndorsementFactory', function($scope, $routeParams, UserFactory, GroupFactory, EndorsementFactory) {
   function getCurrentUser() {
     UserFactory.currentUser(function(user) {
       $scope.currentUser = user;
@@ -20,10 +19,17 @@ app.controller('DashboardController', ['$scope', '$routeParams', 'UserFactory', 
       $scope.adminUser = user;
     })
   }
+  function getEndorsements() {
+    EndorsementFactory.getGroupsEndorsements(function(user) {
+      $scope.userEndorsements = user;
+      console.log('users endorsements', $scope.userEndorsements);
+    })
+  }
   getCurrentUser();
   getUserFollows();
   getUserMemberships();
   getUserAdmins();
+  getEndorsements();
   $scope.follow = function(id) {
     GroupFactory.follow(id);
   }
