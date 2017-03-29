@@ -1,15 +1,76 @@
-<a href='#!/dashboard'>Home</a>
-<h1>Group Name: {{group.name}}</h1>
-<h2>Group Description: {{group.description}}</h2>
-<h3>Admins</h3>
-<div ng-repeat='admin in group.admins'>
-  <p>{{admin.name}}</p>
+<div class="row-fluid">
+    <div class="col-sm-12">
+        <nav class="navbar navbar-default">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <a class="navbar-brand"><span class="text-primary">VOTERGAB &mdash; {{currentUser.name}}</span></a>
+                </div>
+                <div class="collapse navbar-collapse">
+                    <ul class="nav navbar-nav pull-left">
+                        <li><a href="#!/dashboard"><span class="text-primary">Dashboard</span></a></li>
+                        <li><a href="#!/groups/all"><span class="text-primary">Find Group</span></a></li>
+                        <li><a href="#!/groups/new"><span class="text-primary">New Group</span></a></li>
+                    </ul>
+                    <ul class="nav navbar-nav pull-right">
+                        <li class="dropdown"><a href="#!/dashboard" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" id="mygroups"><span class="text-primary">My Follows</span> <span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li ng-repeat='group in followUser.following'><a href='#!/groups/show/{{group._id}}'>{{group.name}}</a></li>
+                                <!-- ON HOVER, show {{group.description}} on left? -->
+                            </ul>
+                        </li>
+
+                        <li class="dropdown"><a href="#!/dashboard" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" id="mygroups"><span class="text-primary">My Groups</span> <span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li ng-repeat="group in adminUser.admin"><a href='#!/groups/show/{{group._id}}'>{{group.name}}</a></li>
+                                <li role="separator" class="divider"></li>
+                                <li ng-repeat="group in memberUser.memberships"><a href='#!/groups/show/{{group._id}}'>{{group.name}}</a></li>
+                                <!-- ON HOVER, show {{group.description}} on left? -->
+                            </ul>
+                        </li>
+                        <li><a href="/logout" class="navbar-right"><span class="text-danger">Logout</span></a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </div>
 </div>
-<h3>Members</h3>
-<div ng-repeat='member in group.members'>
-  <p>{{member.name}}</p>
-</div>
-<h3>Followers</h3>
-<div ng-repeat='follower in group.followers'>
-  <p>{{follower.name}}</p>
+
+<div class="row-fluid">
+    <div class="col-sm-12">
+        <h2>Name: {{group.name}}</h2>
+        <h3>Description: {{group.description}}</h3>
+
+        <table class="table table-bordered table-striped table-hover">
+            <thead>
+                <tr>
+                    <th class="h4">Administrators</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="admin in group.admins | filter: {name:filter} | orderBy : '-createdAt'">
+                    <td class="h5">{{admin.name}}</a></td>
+                </tr>
+            </tbody>
+            <thead>
+                <tr>
+                    <th class="h4">Members</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="member in group.members | filter: {name:filter} | orderBy : '-createdAt'">
+                    <td class="h5">{{member.name}}</a></td>
+                </tr>
+            </tbody>
+            <thead>
+                <tr>
+                    <th class="h4">Followers</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="follower in group.followers | filter: {name:filter} | orderBy : '-createdAt'">
+                    <td class="h5">{{follower.name}}</a></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 </div>
