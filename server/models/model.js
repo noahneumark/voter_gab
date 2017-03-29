@@ -25,7 +25,7 @@ var GroupSchema = mongoose.Schema({
 var EndorsementSchema = mongoose.Schema({
   title: {type: String, required: true, minlength: 1},
   state: {type: String, minlength: 2},
-  measureID: {type: Number, required: true},
+  measureId: {type: Number, required: true},
   _group: {type: Schema.Types.ObjectId, ref: 'Group'},
   upvotes: [{type: Schema.Types.ObjectId, ref: 'User'}],
   downvotes: [{type: Schema.Types.ObjectId, ref: 'User'}],
