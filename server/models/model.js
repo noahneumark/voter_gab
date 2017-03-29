@@ -29,7 +29,7 @@ var EndorsementSchema = mongoose.Schema({
   _group: {type: Schema.Types.ObjectId, ref: 'Group'},
   upvotes: [{type: Schema.Types.ObjectId, ref: 'User'}],
   downvotes: [{type: Schema.Types.ObjectId, ref: 'User'}],
-  status: {type: String, required: true}
+  status: {type: String, required: true, default: 'Pending'}
 }, {timestamps: true});
 
 // CHAT CHEMA

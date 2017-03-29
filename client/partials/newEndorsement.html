@@ -4,17 +4,17 @@
   <div class='form-group row'>
     <label class='col-sm-2 col-form-label'>State:</label>
     <div class='col-sm-3'>
-      <input class='form-control' type='text' ng-model='endorsement.state' ng-minlength='1' required>
+      <input class='form-control' type='text' ng-model='endorsements.state' ng-minlength='1' required>
     </div>
     <br class='h1'>
-    <label class='col-sm-2 col-form-label'>Zip Code:</label>
+    <label class='col-sm-2 col-form-label'>Year:</label>
     <div class='col-sm-3'>
-      <input class='form-control' type='text' ng-model='endorsement.zipCode' ng-minlength='1' required>
+      <input class='form-control' type='number' ng-model='endorsements.year' ng-minlength='1' required>
     </div>
     <br class='h1'>
     <p class='col-sm-6 col-sm-offset-4'>
     <!--<button class='btn btn-primary btn-md' ng-click='addEndorsement(newEndorsement)' role='button'>Submit</button>-->
-      <button class='btn btn-primary btn-md' ng-click='getEndorsements(endorsement)' role='button'>Submit</button>
+      <button class='btn btn-primary btn-md' ng-click='getEndorsements(endorsements)' role='button'>Submit</button>
       <button class='btn btn-danger btn-md' ng-click='resetForm()' role='button'>Reset</button>
     </p>
   </div>
@@ -25,14 +25,9 @@
     <th>Measure Code</th>
     <th>Actions</th>
   </thead>
-  <tr>
-    <th>Legalization Drug Use</th>
-    <th>Prop 420</th>
-    <th><button>Propose Endorsement</button></th>
-  </tr>
-  <tr>
-    <th>Feed the Orange Colored Demon</th>
-    <th>Prop 9001</th>
-    <th><button>Propose Endorsement</button></th>
+  <tr ng-repeat='endorsement in data.measures.measure'>
+    <th>{{endorsement.title}}</th>
+    <th>{{endorsement.measureCode}}</th>
+    <th><button ng-click='propose(endorsement.title, endorsement.measureCode)'>Propose Endorsement</button></th>
   </tr>
 </table>

@@ -2,6 +2,7 @@ var express  = require( 'express' ),
     path     = require( 'path' ),
     bp       = require('body-parser'),
     session  = require('express-session'),
+    request  = require('request'),
     root     = __dirname,
     port     = process.env.PORT || 8000,
     app      = express();
