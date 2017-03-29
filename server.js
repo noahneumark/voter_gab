@@ -35,7 +35,7 @@ require('./server/config/routes.js')(app,server);
 io.on('connection',function(socket){
     socket.on('new_message',function(data){
       // messages.push(d)
-      messages.push(data);
+      messages.unshift(data);
       // console.log(messages);
       // console.log("***************************** IO CONNECTED *****************************");
       io.emit("post_new_message",{new_message:data.message,user:data.c_user});
