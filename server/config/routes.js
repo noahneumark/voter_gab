@@ -14,6 +14,8 @@ module.exports = function(app,server) {
   app.post('/groups', groups.create);
   app.get('/groups/following', groups.following);
   app.get('/groups/memberships', groups.memberships);
+  app.get('/groups/admins', groups.admins);
   app.put('/groups/:id/follow', groups.follow);
+  app.put('/groups/:id/unfollow', groups.unfollow);
   app.get('/groups/:id', groups.show);
 }

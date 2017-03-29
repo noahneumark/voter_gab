@@ -1,0 +1,7 @@
+#message{
+  width:100%;
+}
+#message_log{
+  height: 250px;
+  overflow: scroll;
+}

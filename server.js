@@ -28,13 +28,19 @@ require('./server/config/mongoose.js');
 var server = app.listen( port, function() {
   console.log( `server running on port ${ port }` );
 });
-
+var messages = [];
 var io = require('socket.io').listen(server);
 require('./server/config/routes.js')(app,server);
 // socket listening to connections
 io.on('connection',function(socket){
     socket.on('new_message',function(data){
-      console.log("***************************** IO CONNECTED *****************************");
-      io.emit("post_new_message",{new_message:data.message});
+      // messages.push(d)
+      messages.push(data);
+      // console.log(messages);
+      // console.log("***************************** IO CONNECTED *****************************");
+      io.emit("post_new_message",{new_message:data.message,user:data.c_user});
+    })
+    socket.on('grab_messages',function(){
+      socket.emit("load_messages",{message_list:messages});
     })
 });
