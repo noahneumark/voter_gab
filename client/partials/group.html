@@ -1,4 +1,4 @@
-<a href='#!/dashboard'>Home</a>
+<a href='#!/dashboard'>Home</a> | <a href='#!/endorsements/new'>Create a new endorsement</a>
 <h1>Group Name: {{group.name}}</h1>
 <h2>Group Description: {{group.description}}</h2>
 <h3>Admins</h3>
@@ -13,3 +13,8 @@
 <div ng-repeat='follower in group.followers'>
   <p>{{follower.name}}</p>
 </div>
+<h1>To do:</h1>
+<p>Link to add new endorsement, status='pending'</p>
+<p>Admin sets threshold of number of votes required for endorsement</p>
+<p>Table of 'to be' endorsements with item (name), votes, votes needed, vote action, (if admin: enable button if threshold is met)</p>
+<p>Once finalized, endorsement goes to status 'complete'</p>
