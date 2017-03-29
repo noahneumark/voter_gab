@@ -2,9 +2,10 @@
 var endorsements = require('../controllers/endorsements.js');
 var groups = require('../controllers/groups.js');
 var users = require('../controllers/users.js');
+var chat = require('../controllers/chatcontroller.js');
 var endorsements = require('../controllers/endorsements.js');
 
-module.exports = function(app) {
+module.exports = function(app,server) {
   app.get('/users', users.index);
   app.post('/register', users.register);
   app.post('/login', users.login);

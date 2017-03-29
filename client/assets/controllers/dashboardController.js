@@ -1,4 +1,5 @@
 app.controller('DashboardController', ['$scope', '$routeParams', 'UserFactory', 'GroupFactory', function($scope, $routeParams, UserFactory, GroupFactory) {
+  
   function getCurrentUser() {
     UserFactory.currentUser(function(user) {
       $scope.currentUser = user;

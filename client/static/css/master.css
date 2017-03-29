@@ -1,0 +1,8 @@
+#message{
+  width:100%;
+}
+#message_log{
+  height: 172px;
+  overflow: scroll;
+  padding:10px;
+}
