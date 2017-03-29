@@ -2,6 +2,7 @@
 var endorsements = require('../controllers/endorsements.js');
 var groups = require('../controllers/groups.js');
 var users = require('../controllers/users.js');
+var endorsements = require('../controllers/endorsements.js');
 
 module.exports = function(app) {
   app.get('/users', users.index);
@@ -17,4 +18,5 @@ module.exports = function(app) {
   app.put('/groups/:id/follow', groups.follow);
   app.put('/groups/:id/unfollow', groups.unfollow);
   app.get('/groups/:id', groups.show);
+  app.post('/endorsements', endorsements.create);
 }
