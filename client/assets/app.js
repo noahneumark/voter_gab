@@ -26,6 +26,10 @@ app.config(function($routeProvider) {
       templateUrl: 'partials/group.html',
       controller: 'GroupController'
     })
+    .when('/endorsements/new', {
+      templateUrl: 'partials/newEndorsement.html',
+      controller: 'NewEndorsementController'
+    })
     .otherwise({
       redirectTo: '/'
     })
