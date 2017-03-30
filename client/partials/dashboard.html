@@ -23,7 +23,7 @@
                             <ul class="dropdown-menu">
                                 <li ng-repeat="group in adminUser.admin"><a href='#!/groups/show/{{group._id}}'>{{group.name}}</a></li>
                                 <li role="separator" class="divider"></li>
-                                <li ng-repeat="group in memberUser.memberships"><a href='#!/groups/show/{{group._id}}'>{{group.name}}</a></li>
+                                <li ng-repeat="group in memberUser.memberships" ng-if="!group in adminUser.admin"><a href='#!/groups/show/{{group._id}}'>{{group.name}}</a></li>
                                 <!-- ON HOVER, show {{group.description}} on left? -->
                             </ul>
                         </li>
