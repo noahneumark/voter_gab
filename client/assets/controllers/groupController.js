@@ -20,6 +20,13 @@ app.controller('GroupController', ['$scope', '$routeParams', '$location', 'Group
   $scope.newEndorsement = function(id) {
     $location.url('/groups/'+id+'/endorsements/new')
   }
+  function getUser(){
+    UserFactory.currentUser(function(c_user){
+      $scope.c_user = c_user;
+      console.log($scope.c_user);
+    })
+  }
+  getUser();
   $scope.isMember = function(id, members) {
     for (var i in members) {
       if (members[i]._id == id) {
