@@ -41,11 +41,11 @@
     </div>
 </div>
 
-<div class="row">
+<div class="row-fluid">
     <div class="col-sm-5">
         <h2 class="text-info">Name: {{group.name}}</h2>
         <h3 class="text-info">{{group.description}}</h3>
-        <h4>Group Admins: <span ng-repeat="admin in group.admins | orderBy : '-createdAt'">{{admin.name}} </span></h4>
+        <h4 class="text-info">Group Admins: <span ng-repeat="admin in group.admins | orderBy : '-createdAt'">{{admin.name}} </span></h4>
     </div>
     <div class="col-sm-7">
         <button ng-if='isMember(currentUser._id, group.members)' class='btn btn-primary btn-md' role='button' ng-click='newEndorsement(group._id)'>Create a new endorsement</button>
@@ -60,7 +60,7 @@
     </div>
 </div>
 
-<div class="row">
+<div class="row-fluid">
     <div class="col-sm-5">
         <table ng-if='!group.members.includes(currentUser._id)' class="table table-bordered table-striped table-hover">
             <thead>
@@ -106,7 +106,7 @@
                 <input type="hidden" value="{{c_user._id}}" id="message_userid">
                 <input type="hidden" value="{{c_user.name}}" id="message_user">
                 <input type="text" id="message" placeholder="Membership is required" class="form-control" ng-if="!c_user.following.includes(group._id)" disabled>
-                <input type="text" id="message" placeholder="MESSAGE..." class="form-control" ng-if="c_user.following.includes(group._id)">
+                <input type="text" id="message" placeholder="{{currentUser.name}}: " class="form-control" ng-if="c_user.following.includes(group._id)">
               </form>
             </div>
             <script>
@@ -149,20 +149,5 @@
             })
             </script>
         </div>
-    </div>
-</div>
-<div class="row">
-    <div class="col-sm-12">
-        <h1>Measure details: {{measureDetail}}</h1>
-    </div>
-</div>
-<div class="row">
-    <div class="col-sm-12">
-        <br class="h1" />
-        <h1>To do:</h1>
-        <p>Link to add new endorsement, status='pending'</p>
-        <p>Admin sets threshold of number of votes required for endorsement</p>
-        <p>Table of 'to be' endorsements with item (name), votes, votes needed, vote action, (if admin: enable button if threshold is met)</p>
-        <p>Once finalized, endorsement goes to status 'complete'</p>
     </div>
 </div>
