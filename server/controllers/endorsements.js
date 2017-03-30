@@ -1,6 +1,8 @@
 var mongoose = require('mongoose');
 var request = require('request');
 var Endorsement = mongoose.model('Endorsement');
+var Group = mongoose.model('Group');
+var User = mongoose.model('User');
 
 module.exports = {
   index: function(req, res) {
@@ -13,6 +15,20 @@ module.exports = {
       }
     })
   },
+  getGroupsEndorsements: function(req, res) {
+    // DP (deep populate)
+    //User.find({_id: req.session.user._id}).deepPopulate('memberships.endorsements memberships.upvotes memberships.downvotes')
+    console.log('request session', req.session.user);
+    User.findOne({_id: req.session.user._id}).deepPopulate('memberships.endorsements').exec(function(err, data) {
+      if (err) {
+        res.status(400).send('Could not fetch user');
+      }
+      else {
+        console.log(data);
+        res.json(data);
+      }
+    })
+  },
   get: function(req, res) {
     request('http://api.votesmart.org/Measure.getMeasuresByYearState?key=2f03c2e306be0364519648e3878b6336&year='+req.body.year+'&stateId='+req.body.state+'&o=JSON', function(error, response, body) {
       var contents = JSON.parse(body);
@@ -20,6 +36,33 @@ module.exports = {
     })
   },
   propose: function(req, res) {
-    console.log('propose req body', req.body);
+    Endorsement.findOne({measureId: req.body.measureId}, function(err, endorsement) {
+      if (!endorsement) {
+        var endorsement = new Endorsement(req.body);
+        endorsement._group = req.params.id;
+        Group.findOne({_id: req.params.id}, function(err, group) {
+          group.endorsements.push(endorsement._id);
+          endorsement.save(function(err) {
+            group.save(function(err) {
+              if (err) {
+                res.status(400).send("You dun goof'd");
+              }
+              else {
+                res.sendStatus(200);
+              }
+            })
+          })
+        })
+      }
+    })
   }
 }
+//var EndorsementSchema = mongoose.Schema({
+//  title: {type: String, required: true, minlength: 1},
+//  state: {type: String, minlength: 2},
+//  measureID: {type: Number, required: true},
+//  _group: {type: Schema.Types.ObjectId, ref: 'Group'},
+//  upvotes: [{type: Schema.Types.ObjectId, ref: 'User'}],
+//  downvotes: [{type: Schema.Types.ObjectId, ref: 'User'}],
+//  status: {type: String, required: true, default: 'Pending'}
+//}, {timestamps: true});

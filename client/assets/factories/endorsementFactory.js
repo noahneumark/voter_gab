@@ -20,5 +20,13 @@ app.factory('EndorsementFactory', ['$location', '$http', function($location, $ht
       $location.url('/groups/show/'+id);
     })
   }
+  factory.getGroupsEndorsements = function(callback) {
+    $http({
+      url: '/endorsements',
+      method: 'GET',
+    }).then(function(res) {
+      callback(res.data);
+    })
+  }
   return factory;
 }])
