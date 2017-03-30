@@ -5,6 +5,7 @@ var users = require('../controllers/users.js');
 var chat = require('../controllers/chatcontroller.js');
 var endorsements = require('../controllers/endorsements.js');
 
+
 module.exports = function(app,server) {
   app.get('/users', users.index);
   app.post('/register', users.register);
@@ -21,4 +22,59 @@ module.exports = function(app,server) {
   app.get('/groups/:id', groups.show);
   app.post('/endorsements', endorsements.get);
   app.post('/groups/endorsements/:id/propose', endorsements.propose);
+
+
+  //SOCKETS
+  var messages = [];
+  var gmessages = [];
+  var groupRoom = [];
+  var io = require('socket.io').listen(server);
+  // var clients = [];
+  // socket listening to connections
+  io.on('connection',function(socket){
+    var defaultRoom = 'lobby';
+    //socket.join(defaultRoom);
+    // var connected_user = {socket_id:socket.id}
+    // console.log(connected_user);
+    //   clients.push(connected_user);
+      // console.log("CLIENTS : ",clients);
+      socket.on('new_message',function(data){
+        //chat.addmessage(data);
+        // io.emit("post_new_message",{new_message:data.message,user:data.c_user});
+        messages.unshift(data);
+        // console.log("***************************** IO CONNECTED *****************************");
+          io.emit("post_new_message",{new_message:data.message,user:data.c_user});
+        })
+      socket.on('grab_messages',function(){
+        io.in(defaultRoom).emit("load_messages",{message_list:messages});
+      })
+      socket.on('group_new_message',function(data){
+        console.log(data);
+        var group_is = data.c_group;
+        var gmessagesx = [];
+        socket.join(data.c_group);
+        chat.grouptoroom(function(groupIDs){
+          groupRoom.push(groupIDs);
+          console.log(groupRoom);
+        });
+        chat.addmessage(data);
+        chat.grabmssg(data,function(data){
+          // console.log(data);
+          gmessagesx = data;
+          // console.log(gmessagesx);
+          console.log("done");
+          io.in(group_is).emit("group_post_new_message",{new_message:gmessagesx});
+        });
+        })
+      socket.on('ggrab_messages',function(){
+        // socket.join(defaultRoom);
+        io.in("test").emit("gload_messages",{message_list:gmessages});
+      })
+      socket.on('joingroup',function(){
+        socket.join("test");
+      })
+      socket.on('joinlobby',function(){
+        socket.join(defaultRoom);
+      })
+  });
 }

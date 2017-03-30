@@ -71,8 +71,8 @@
           <!-- <h1 class="text-primary lead">Lobby Chat</h2> -->
             <script>
             $(document).ready(function(){
-              console.log('asdf');
               var socket = io.connect();
+              socket.emit('joinlobby');
               socket.emit('grab_messages');
               socket.on('load_messages',function(data){
                 // $('#error').html('');
