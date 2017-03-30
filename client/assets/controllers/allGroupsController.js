@@ -1,4 +1,4 @@
-app.controller('AllGroupsController', ['$scope', '$routeParams', 'GroupFactory', 'UserFactory', function($scope, $routeParams, GroupFactory, UserFactory) {
+app.controller('AllGroupsController', ['$scope', '$routeParams', '$location', 'GroupFactory', 'UserFactory', function($scope, $routeParams, $location, GroupFactory, UserFactory) {
   function getAllGroups() {
     GroupFactory.getAllGroups(function(groups) {
       $scope.groups = groups;
@@ -7,6 +7,7 @@ app.controller('AllGroupsController', ['$scope', '$routeParams', 'GroupFactory',
   function getCurrentUser() {
     UserFactory.currentUser(function(user) {
       $scope.currentUser = user;
+      console.log($scope.currentUser);
     })
   }
   function getUserFollows() {
@@ -29,10 +30,15 @@ app.controller('AllGroupsController', ['$scope', '$routeParams', 'GroupFactory',
   getAllGroups();
   getCurrentUser();
   getUserAdmins();
+
   $scope.follow = function(id) {
     GroupFactory.follow(id);
+    getCurrentUser();
   }
   $scope.unfollow = function(id) {
-    GroupFactory.unfollow(id);
+    GroupFactory.unfollow(id, function() {
+      getCurrentUser();
+      $location.url('/dashboard');
+    })
   }
 }]);

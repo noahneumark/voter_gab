@@ -1,5 +1,4 @@
-app.controller('DashboardController', ['$scope', '$routeParams', 'UserFactory', 'GroupFactory', function($scope, $routeParams, UserFactory, GroupFactory) {
-  
+app.controller('DashboardController', ['$scope', '$routeParams', '$location', 'UserFactory', 'GroupFactory', 'EndorsementFactory', function($scope, $routeParams, $location, UserFactory, GroupFactory, EndorsementFactory) {
   function getCurrentUser() {
     UserFactory.currentUser(function(user) {
       $scope.currentUser = user;
@@ -20,11 +19,27 @@ app.controller('DashboardController', ['$scope', '$routeParams', 'UserFactory', 
       $scope.adminUser = user;
     })
   }
+  function getEndorsements() {
+    EndorsementFactory.getGroupsEndorsements(function(user) {
+      $scope.userEndorsements = user;
+    })
+  }
   getCurrentUser();
   getUserFollows();
   getUserMemberships();
   getUserAdmins();
+  getEndorsements();
   $scope.follow = function(id) {
     GroupFactory.follow(id);
+  }
+  $scope.voteYea = function(id) {
+    EndorsementFactory.yea(id, function() {
+      $location.url('#!/dashboard');
+    });
+  }
+  $scope.voteNay = function(id) {
+    EndorsementFactory.nay(id, function() {
+      $location.url('#!/dashboard');
+    });
   }
 }]);

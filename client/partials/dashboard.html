@@ -23,6 +23,7 @@
                             <ul class="dropdown-menu">
                                 <li ng-repeat="group in adminUser.admin"><a href='#!/groups/show/{{group._id}}'>{{group.name}}</a></li>
                                 <li role="separator" class="divider"></li>
+                                <!-- fix line below to separate groups according to admin/member status on navbar -->
                                 <li ng-repeat="group in memberUser.memberships"><a href='#!/groups/show/{{group._id}}'>{{group.name}}</a></li>
                                 <!-- ON HOVER, show {{group.description}} on left? -->
                             </ul>
@@ -45,13 +46,18 @@
                     <th>Vote</th>
                 </tr>
             </thead>
-            <tbody class="text-primary">
-                <tr>
-                    <td class="h4">GROUP_NAME</td>
-                    <td class="h4">ITEM_NAME</a></td>
+            <tbody class="text-primary" ng-repeat='group in userEndorsements.memberships'>
+                <tr ng-repeat='endorsement in group.endorsements'>
+                    <td class="h4">{{group.name}}</td>
+                    <td class="h4">{{endorsement.title}}</a></td>
                     <td>
-                        <button class='btn btn-success btn-sm' role='button'>YEA</button>
-                        <button class='btn btn-danger btn-sm' role='button'>NAY</button>
+                      <span ng-if='!endorsement.upvotes.includes(currentUser._id) && !endorsement.downvotes.includes(currentUser._id)'>
+                        <button class='btn btn-success btn-sm' role='button' ng-click='voteYea(endorsement._id)'>YEA</button>
+                        <button class='btn btn-danger btn-sm' role='button' ng-click='voteNay(endorsement._id)'>NAY</button>
+                      </span>
+                      <span ng-if='endorsement.upvotes.includes(currentUser._id) || endorsement.downvotes.includes(currentUser._id)'>
+                        <button class='btn btn-primary btn-sm' role='button' disabled>VOTED</button>
+                      </span>
                     </td>
                 </tr>
             </tbody>
@@ -59,7 +65,7 @@
     </div>
     <div class="col-sm-7">
         <div class="col-sm-12">
-            <h2>Endorsement Feed</h2>
+            <h2>Global Endorsement Feed</h2>
             <ul>
                 <li class="h4">Endorsement 1 - details....</li>
                 <li class="h4">Endorsement 2 - details....</li>
@@ -107,22 +113,4 @@
             </div>
         </div>
     </div>
-</div>
-
-
-<br class="h1"/>
-<br class="h1"/>
-<br class="h1"/>
-<br class="h1"/>
-<br class="h1"/>
-<br class="h1"/>
-<br class="h1"/>
-<br class="h1"/>
-<br class="h1"/>
-<br class="h1"/>
-        </div>
-    </div>
-</div>
-<div>
-
 </div>
