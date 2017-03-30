@@ -24,7 +24,7 @@
                             </ul>
                         </li>
 
-                        <li class="dropdown"><a href="#!/dashboard" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" id="mygroups"><span class="text-primary">My Groups</span> <span class="caret"></span></a>
+                        <li class="dropdown"><a href="#!/groups/show/{{group._id}}" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" id="mygroups"><span class="text-primary">My Groups</span> <span class="caret"></span></a>
                             <ul class="dropdown-menu">
                                 <li ng-repeat="group in adminUser.admin"><a href='#!/groups/show/{{group._id}}'>{{group.name}}</a></li>
                                 <li role="separator" class="divider"></li>
@@ -41,52 +41,68 @@
     </div>
 </div>
 
-
 <div class="row">
-    <div class="col-sm-12">
-        <button ng-if='isMember(currentUser._id, group.members)' class='btn btn-primary' role='button' ng-click='newEndorsement(group._id)'>Create a new endorsement</button>
-        <!--<button ng-if='isAdmin(currentUser._id, group.admins)' class='btn btn-primary' role='button' ng-click='promoteMember(group._id)'>Add member</button>-->
-        <h2>Add a member</h2>
-        <form ng-if='isAdmin(currentUser._id, group.admins)'>
-          <select class='form-control' ng-model='followerId'>
-            <option ng-repeat='follower in groupFollowers' ng-value='follower._id'>{{follower.name}}</option>
-          </select>
-          <button ng-click='addMember(followerId)'>Add member</button>
-        </form>
-        <h2>Name: {{group.name}}</h2>
-        <h3>Description: {{group.description}}</h3>
-        <table class="table table-bordered table-striped table-hover">
-            <thead>
-                <tr>
-                  <th>Group</th>
-                  <th>Item</th>
-                  <th>Vote</th>
-                </tr>
-            </thead>
-            <tbody class="text-primary" ng-repeat='group in userEndorsements.memberships'>
-                <tr ng-repeat='endorsement in group.endorsements'>
-                    <td class="h4">{{group.name}}</td>
-                    <td class="h4">{{endorsement.title}}</a></td>
-                    <td>
-                        <button class='btn btn-success btn-sm' role='button'>YEA</button>
-                        <button class='btn btn-danger btn-sm' role='button'>NAY</button>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+    <div class="col-sm-5">
+        <h2 class="text-info">Name: {{group.name}}</h2>
+        <h3 class="text-info">{{group.description}}</h3>
+        <h5>Group Admins: <span ng-repeat="admin in group.admins | orderBy : '-createdAt'">{{admin.name}} </span></h5>
     </div>
-    <div class="col-sm-6">
+    <div class="col-sm-7">
+        <button ng-if='isMember(currentUser._id, group.members)' class='btn btn-primary btn-lg' role='button' ng-click='newEndorsement(group._id)'>Create a new endorsement</button>
+        <!--<button ng-if='isAdmin(currentUser._id, group.admins)' class='btn btn-primary' role='button' ng-click='promoteMember(group._id)'>Add member</button>-->
         <div class="col-sm-12">
             <h2>Group Endorsement Feed</h2>
             <ul>
                 <li class="h4">Endorsement 1 - details....</li>
                 <li class="h4">Endorsement 2 - details....</li>
-                <li class="h4">Endorsement 3 - details....</li>
             </ul>
         </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-sm-5">
+        <table class="table table-bordered table-striped table-hover">
+            <thead>
+                <tr>
+                    <th>Item</th>
+                    <th>Votes</th>
+                    <th>Votes Needed</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody class="text-primary" ng-repeat='group in userEndorsements.memberships'>
+                <tr ng-repeat='endorsement in group.endorsements'>
+                    <td class="h4">{{endorsement.title}}</a></td>
+                    <td>
+                      <span ng-if='!endorsement.upvotes.includes(currentUser._id) && !endorsement.downvotes.includes(currentUser._id)'>
+                        <button class='btn btn-success btn-sm' role='button' ng-click='voteYea(endorsement._id)'>YEA</button>
+                        <button class='btn btn-danger btn-sm' role='button' ng-click='voteNay(endorsement._id)'>NAY</button>
+                      </span>
+                      <span ng-if='endorsement.upvotes.includes(currentUser._id) || endorsement.downvotes.includes(currentUser._id)'>
+                        <button class='btn btn-primary btn-sm' role='button' disabled>VOTED</button>
+                      </span>
+                    </td>
+                    <td>
+                        Votes Needed
+                    </td>
+                    <td>
+                        <span ng-if='!endorsement.upvotes.includes(currentUser._id) && !endorsement.downvotes.includes(currentUser._id)'>
+                          <button class='btn btn-success btn-sm' role='button' ng-click='voteYea(endorsement._id)'>YEA</button>
+                          <button class='btn btn-danger btn-sm' role='button' ng-click='voteNay(endorsement._id)'>NAY</button>
+                        </span>
+                        <span ng-if='endorsement.upvotes.includes(currentUser._id) || endorsement.downvotes.includes(currentUser._id)'>
+                          <button class='btn btn-primary btn-sm' role='button' disabled>VOTED</button>
+                        </span>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="col-sm-7">
         <div class="col-sm-12">
-          <h3 class="text-white">Global Chat</h3>
-          <!-- <h1 class="text-primary lead">Lobby Chat</h2> -->
+            <h3 class="text-white">Global Chat</h3>
+            <!-- <h1 class="text-primary lead">Lobby Chat</h2> -->
             <script>
             $(document).ready(function(){
               console.log('asdf');
@@ -117,30 +133,26 @@
 
             </script>
             <div id="mssg-container">
-              <div id="message_log"></div>
-              <form id="new_message">
-                <input type="hidden" value="{{currentUser.name}}" id="message_user">
-                <input type="text" id="message" placeholder="MESSAGE..." class="form-control">
-              </form>
+                <div id="message_log"></div>
+                <form id="new_message">
+                    <input type="hidden" value="{{currentUser.name}}" id="message_user">
+                    <input type="text" id="message" placeholder="MESSAGE..." class="form-control">
+                </form>
             </div>
         </div>
     </div>
-    <br />
-    <div class="col-sm-4">
-        <table class="table table-bordered table-striped table-hover table-nonfluid">
-            <thead>
-                <tr>
-                    <th class="h4">Administrators</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr ng-repeat="admin in group.admins | filter: {name:filter} | orderBy : '-createdAt'">
-                    <td class="h5">{{admin.name}}</a></td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
+</div>
+
+<div class="row">
     <div class="col-sm-12">
+        <h4>Add a member</h4>
+        <form ng-if='isAdmin(currentUser._id, group.admins)'>
+          <select class='form-control' ng-model='followerId'>
+            <option ng-repeat='follower in groupFollowers' ng-value='follower._id'>{{follower.name}}</option>
+          </select>
+          <button ng-click='addMember(followerId)'>Add member</button>
+        </form>
+
         <h1>To do:</h1>
         <p>Link to add new endorsement, status='pending'</p>
         <p>Admin sets threshold of number of votes required for endorsement</p>
@@ -148,46 +160,8 @@
         <p>Once finalized, endorsement goes to status 'complete'</p>
         <h3 class="text-white">{{group.name}} chat</h3>
         <!-- <h1 class="text-primary lead">Lobby Chat</h2> -->
-          <script>
-          $(document).ready(function(){
-            // console.log(cur_group);
-            var socket = io.connect();
-            socket.on('gload_messages',function(data){
-              // var x = {{group._id}}
-              // $('#error').html('');
-              // current_user = data.current_user;
-              var messages = data.message_list;
-              // console.log("LOADED******",messages);
-              // console.log("GRAB ALL",messages);
-              // var messages_thread ="";
-              for(var i =0; i < messages.length;i++){
-                messages_thread = '<p><strong>' + messages[i].user.name + ' : </strong>' + messages[i].message + '</p>';
-              $('#message_log').append(messages_thread);
-            }
-            })
-            // return false;
-            $('#gnew_message').submit(function(){
-              socket.emit('group_new_message',{message: $('#message').val(),c_group:$('#message_group').val(),c_user:$('#message_user').val(),c_userid:$('#message_userid').val()});
-              $('#message').val(" ");
-              return false;
-            })
-            socket.on('group_post_new_message',function(data){
-              // console.log("from",data);
-              for(var i = 0 ; i < data.new_message.length;i++){
-                $('#message_log').append('<p><strong>' + data.new_message[i].user.name + ' : </strong>' + data.new_message[i].message + '</p>');
-              }
-            })
-            function connect(){
-              socket.emit('joingroup',{cur_group: $('#message_group').val()});
-            }
-            function getmssgs(){
-              socket.emit('ggrab_messages',{cur_group: $('#message_group').val()});
-            }
-            setTimeout(connect,1500);
-            setTimeout(getmssgs,1500);
-          })
-          </script>
-          <div id="mssg-container">
+
+        <div id="mssg-container">
             <div id="message_log"></div>
             <form id="gnew_message">
               <input type="hidden" value="{{group._id}}" id="message_group">
@@ -197,6 +171,45 @@
               <input type="text" id="message" placeholder="MESSAGE..." class="form-control" ng-if="c_user.following.includes(group._id)">
               <!-- <input type="text" id="message" placeholder="MESSAGE..." class="form-control" > -->
             </form>
-          </div>
+        </div>
     </div>
 </div>
+<script>
+$(document).ready(function(){
+  // console.log(cur_group);
+  var socket = io.connect();
+  socket.on('gload_messages',function(data){
+    // var x = {{group._id}}
+    // $('#error').html('');
+    // current_user = data.current_user;
+    var messages = data.message_list;
+    // console.log("LOADED******",messages);
+    // console.log("GRAB ALL",messages);
+    // var messages_thread ="";
+    for(var i =0; i < messages.length;i++){
+      messages_thread = '<p><strong>' + messages[i].user.name + ' : </strong>' + messages[i].message + '</p>';
+    $('#message_log').append(messages_thread);
+  }
+  })
+  // return false;
+  $('#gnew_message').submit(function(){
+    socket.emit('group_new_message',{message: $('#message').val(),c_group:$('#message_group').val(),c_user:$('#message_user').val(),c_userid:$('#message_userid').val()});
+    $('#message').val(" ");
+    return false;
+  })
+  socket.on('group_post_new_message',function(data){
+    // console.log("from",data);
+    for(var i = 0 ; i < data.new_message.length;i++){
+      $('#message_log').append('<p><strong>' + data.new_message[i].user.name + ' : </strong>' + data.new_message[i].message + '</p>');
+    }
+  })
+  function connect(){
+    socket.emit('joingroup',{cur_group: $('#message_group').val()});
+  }
+  function getmssgs(){
+    socket.emit('ggrab_messages',{cur_group: $('#message_group').val()});
+  }
+  setTimeout(connect,1500);
+  setTimeout(getmssgs,1500);
+})
+</script>
