@@ -58,6 +58,9 @@
                       <span ng-if='endorsement.upvotes.includes(currentUser._id) || endorsement.downvotes.includes(currentUser._id)'>
                         <button class='btn btn-primary btn-sm' role='button' disabled>VOTED</button>
                       </span>
+                      <span ng-if='!isMember(currentUser._id)'>
+                        <button class='btn btn-primary btn-sm' role='button' disabled>INELIGIBLE</button>
+                      </span>
                     </td>
                 </tr>
             </tbody>

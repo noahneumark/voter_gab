@@ -74,10 +74,14 @@ app.controller('GroupController', ['$scope', '$routeParams', '$location', 'Group
     });
   }
   $scope.votesNeeded = function(endorsement) {
-    console.log('threshold', endorsement.threshold);
-    console.log('upvotes length', endorsement.upvotes.length);
-    console.log('downvotes length', endorsement.downvotes.length);
-    return (endorsement.threshold - (endorsement.upvotes.length + endorsement.downvotes.length));
+    var voteThreshold = 0;
+    voteThreshold = (endorsement.threshold - (endorsement.upvotes.length + endorsement.downvotes.length));
+    if (voteThreshold < 0) {
+      return 0;
+    }
+    else {
+      return voteThreshold;
+    }
   }
   getUserFollows();
   getUserMemberships();

@@ -55,7 +55,7 @@
         </form>
         <h2>Name: {{group.name}}</h2>
         <h3>Description: {{group.description}}</h3>
-        <table class="table table-bordered table-striped table-hover">
+        <table ng-if='!group.members.includes(currentUser._id)' class="table table-bordered table-striped table-hover">
             <thead>
                 <tr>
                   <th>Item</th>
