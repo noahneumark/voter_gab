@@ -38,6 +38,8 @@ module.exports = function(app,server) {
   // var clients = [];
   // socket listening to connections
   io.on('connection',function(socket){
+      console.log("Connected to socket")
+
     var defaultRoom = 'lobby';
       socket.on('new_message',function(data){
         messages.unshift(data);
@@ -87,6 +89,7 @@ module.exports = function(app,server) {
         })
       socket.on('ggrab_messages',function(data){
         var gmessagesx = [];
+        console.log('asdf');
         chat.grabmssg(data,function(data){
           // console.log(data);
           gmessagesx = data;
