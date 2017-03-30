@@ -33,14 +33,7 @@ module.exports = function(app,server) {
   // socket listening to connections
   io.on('connection',function(socket){
     var defaultRoom = 'lobby';
-    //socket.join(defaultRoom);
-    // var connected_user = {socket_id:socket.id}
-    // console.log(connected_user);
-    //   clients.push(connected_user);
-      // console.log("CLIENTS : ",clients);
       socket.on('new_message',function(data){
-        //chat.addmessage(data);
-        // io.emit("post_new_message",{new_message:data.message,user:data.c_user});
         messages.unshift(data);
         // console.log("***************************** IO CONNECTED *****************************");
           io.emit("post_new_message",{new_message:data.message,user:data.c_user});
@@ -49,29 +42,56 @@ module.exports = function(app,server) {
         io.in(defaultRoom).emit("load_messages",{message_list:messages});
       })
       socket.on('group_new_message',function(data){
-        console.log(data);
-        var group_is = data.c_group;
+        // console.log(data);
         var gmessagesx = [];
-        socket.join(data.c_group);
-        chat.grouptoroom(function(groupIDs){
-          groupRoom.push(groupIDs);
-          console.log(groupRoom);
+        chat.addmessage(data,function(datax){
+          gmessagesx = datax;
+          console.log("gmessg",gmessagesx);
+          io.in(socket.room).emit("group_post_new_message",{new_message:gmessagesx});
+          // setTimeout(send,3000);
         });
-        chat.addmessage(data);
+        // chat.grabmssg(data,function(data){
+        //   // console.log(data);
+        //   gmessagesx = data;
+        //   //  console.log(gmessagesx);
+        //   // console.log("done");
+        //   //io.in(socket.room).emit("group_post_new_message",{new_message:gmessagesx});
+        //   setTimeout(send,3000);
+        // });
+        // io.in(socket.room).emit("group_post_new_message",{new_message:data});
+        // // console.log(data);
+        // var group_is = data.c_group;
+        // var gmessagesx = [];
+        // console.log("currect room",socket.room);
+        // socket.join(data.c_group);
+        // chat.grouptoroom(function(groupIDs){
+        //   groupRoom.push(groupIDs);
+        //   // console.log(groupRoom);
+        // });
+        // chat.addmessage(data);
+        // chat.grabmssg(data,function(data){
+        //   // console.log(data);
+        //   gmessagesx = data;
+        //   // console.log(gmessagesx);
+        //   // console.log("done");
+        //   io.in(group_is).emit("group_post_new_message",{new_message:gmessagesx});
+        // });
+        })
+      socket.on('ggrab_messages',function(data){
+        var gmessagesx = [];
         chat.grabmssg(data,function(data){
           // console.log(data);
           gmessagesx = data;
-          // console.log(gmessagesx);
-          console.log("done");
-          io.in(group_is).emit("group_post_new_message",{new_message:gmessagesx});
+          io.in(socket.room).emit("gload_messages",{message_list:gmessagesx});
+          //  console.log(gmessagesx);
+          // console.log("done");
+          //io.in(socket.room).emit("group_post_new_message",{new_message:gmessagesx});
         });
-        })
-      socket.on('ggrab_messages',function(){
-        // socket.join(defaultRoom);
-        io.in("test").emit("gload_messages",{message_list:gmessages});
       })
-      socket.on('joingroup',function(){
-        socket.join("test");
+      socket.on('joingroup',function(data){
+        socket.room = data.cur_group;
+        socket.join(data.cur_group);
+        // console.log(data);
       })
       socket.on('joinlobby',function(){
         socket.join(defaultRoom);

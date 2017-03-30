@@ -84,18 +84,18 @@
   <!-- <h1 class="text-primary lead">Lobby Chat</h2> -->
     <script>
     $(document).ready(function(){
+      // console.log(cur_group);
       var socket = io.connect();
-      socket.emit('joingroup');
-      socket.emit('ggrab_messages');
       socket.on('gload_messages',function(data){
         // var x = {{group._id}}
         // $('#error').html('');
         // current_user = data.current_user;
         var messages = data.message_list;
+        console.log("LOADED******",messages);
         // console.log("GRAB ALL",messages);
         // var messages_thread ="";
         for(var i =0; i < messages.length;i++){
-          messages_thread = '<p><strong>' + messages[i].c_user + ' : </strong>' + messages[i].message + '</p>';
+          messages_thread = '<p><strong>' + messages[i].user.name + ' : </strong>' + messages[i].message + '</p>';
         $('#message_log').append(messages_thread);
       }
       })
@@ -111,8 +111,15 @@
           $('#message_log').prepend('<p><strong>' + data.new_message[i].user.name + ' : </strong>' + data.new_message[i].message + '</p>');
         }
       })
+      function connect(){
+        socket.emit('joingroup',{cur_group: $('#message_group').val()});
+      }
+      function getmssgs(){
+        socket.emit('ggrab_messages',{cur_group: $('#message_group').val()});
+      }
+      setTimeout(connect,1500);
+      setTimeout(getmssgs,1500);
     })
-
     </script>
     <div id="mssg-container">
       <div id="message_log"></div>
