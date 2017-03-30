@@ -23,7 +23,7 @@
                             <ul class="dropdown-menu">
                                 <li ng-repeat="group in adminUser.admin"><a href='#!/groups/show/{{group._id}}'>{{group.name}}</a></li>
                                 <li role="separator" class="divider"></li>
-                                <li ng-repeat="group in memberUser.memberships"><a href='#!/groups/show/{{group._id}}'>{{group.name}}</a></li>
+                                <li ng-repeat="group in memberUser.memberships" ng-if="!group in adminUser.admin"><a href='#!/groups/show/{{group._id}}'>{{group.name}}</a></li>
                                 <!-- ON HOVER, show {{group.description}} on left? -->
                             </ul>
                         </li>
@@ -64,7 +64,7 @@
     </div>
     <div class="col-sm-7">
         <div class="col-sm-12">
-            <h2>Endorsement Feed</h2>
+            <h2>Global Endorsement Feed</h2>
             <ul>
                 <li class="h4">Endorsement 1 - details....</li>
                 <li class="h4">Endorsement 2 - details....</li>
@@ -110,21 +110,6 @@
                 <input type="text" id="message" placeholder="MESSAGE..." class="form-control">
               </form>
             </div>
-        </div>
-    </div>
-</div>
-
-
-<br class="h1"/>
-<br class="h1"/>
-<br class="h1"/>
-<br class="h1"/>
-<br class="h1"/>
-<br class="h1"/>
-<br class="h1"/>
-<br class="h1"/>
-<br class="h1"/>
-<br class="h1"/>
         </div>
     </div>
 </div>

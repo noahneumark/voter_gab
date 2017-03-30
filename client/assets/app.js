@@ -7,6 +7,11 @@ app.config(function($routeProvider) {
   // })
     .when('/', {
       //.when('/login', {
+      templateUrl: 'partials/home.html',
+      controller: 'HomeController'
+    })
+    .when('/login', {
+      //.when('/login', {
       templateUrl: 'partials/loginReg.html',
       controller: 'LoginRegController'
     })

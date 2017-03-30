@@ -4,7 +4,7 @@
   <div class='form-group row'>
     <label class='col-sm-2 col-form-label'>State:</label>
     <div class='col-sm-3'>
-		  <select class='form-control' ng-model='endorsements.state'>
+		  <select class='form-control' ng-model='newEndorsement.state'>
 		  	<option value="AL">Alabama</option>
 		  	<option value="AK">Alaska</option>
 		  	<option value="AZ">Arizona</option>
@@ -61,12 +61,12 @@
     <br class='h1'>
     <label class='col-sm-2 col-form-label'>Year:</label>
     <div class='col-sm-3'>
-      <input class='form-control' type='number' ng-model='endorsements.year' ng-minlength='1' required>
+      <input class='form-control' type='number' ng-model='newEndorsement.year' ng-minlength='1' required>
     </div>
     <br class='h1'>
-    <p class='col-sm-6 col-sm-offset-4'>
-      <button class='btn btn-primary btn-md' ng-click='getEndorsements(endorsements)' role='button'>Search</button>
-      <button class='btn btn-danger btn-md' ng-click='resetForm()' role='button'>Reset</button>
+    <p class='col-sm-6'>
+      <button class='btn btn-danger btn-md' ng-click='reset()' role='button'>Reset</button>
+      <button class='btn btn-primary btn-md' ng-click='getEndorsements(newEndorsement)' role='button'>Submit</button>
     </p>
   </div>
 </form>
