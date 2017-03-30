@@ -29,8 +29,8 @@
                                 <li ng-repeat="group in adminUser.admin"><a href='#!/groups/show/{{group._id}}'>{{group.name}}</a></li>
                                 <li role="separator" class="divider"></li>
                                 <!-- fix this line again -->
-                                <li ng-repeat="group in memberUser.memberships"><a href='#!/groups/show/{{group._id}}'>{{group.name}}</a></li>
-                                <!-- ON HOVER, show {{group.description}} on left? -->
+                                <li ng-repeat="group in memberUser.memberships" ng-if="!adminList.includes(group._id)"><a href='#!/groups/show/{{group._id}}'>{{group.name}}</a></li>
+                                <!-- ON HOVER, show {{group.description}} on left? !group.followers.includes(currentUser._id)-->
                             </ul>
                         </li>
                         <li><a href="/logout" class="navbar-right"><span class="text-danger">Logout</span></a></li>
@@ -163,6 +163,8 @@
         </table>
     </div>
     <div class="col-sm-12">
+        <button type="button" name="button" ng-click="getMeasureDetails(2144)">pull measure</button>
+        <div>Measure details: {{measureDetail}}</div>
         <h1>To do:</h1>
         <p>Link to add new endorsement, status='pending'</p>
         <p>Admin sets threshold of number of votes required for endorsement</p>
