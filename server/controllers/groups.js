@@ -137,5 +137,14 @@ module.exports = {
       var contents = JSON.parse(body);
       res.json(contents);
     })
+  },
+  addMember: function(req, res) {
+    Group.findOne({_id: req.params.g_id}, function(err, group) {
+      User.findOne({_id: req.params.f_id}, function(err, user) {
+        user.memberships.push(group._id);
+        user.save(function(err) {
+        })
+      })
+    })
   }
 }

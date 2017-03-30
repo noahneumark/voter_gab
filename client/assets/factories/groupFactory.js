@@ -75,7 +75,13 @@ app.factory('GroupFactory', ['$location', '$http', function($location, $http) {
       callback(res.data);
     })
   }
-  factory.newMember = function(id, callback) {
+  factory.newMember = function(f_id, g_id, callback) {
+    $http({
+      url: '/groups/' + g_id + '/members/' + f_id + '/add',
+      method: 'PUT'
+    }).then(function(res) {
+      console.log(res);
+    })
   }
   factory.getMeasureDetails = function(id, callback) {
     $http({

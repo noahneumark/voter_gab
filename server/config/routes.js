@@ -27,6 +27,7 @@ module.exports = function(app,server) {
   app.get('/endorsements', endorsements.getGroupsEndorsements);
   app.post('/groups/endorsements/:id/propose', endorsements.propose);
   app.get('/groups/measure/:id', groups.getMeasureDetails);
+  app.put('/groups/:g_id/members/:f_id/add', groups.addMember);
 
 
   //SOCKETS
