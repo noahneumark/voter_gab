@@ -46,7 +46,7 @@ module.exports = function(app,server) {
         var gmessagesx = [];
         chat.addmessage(data,function(datax){
           gmessagesx = datax;
-          console.log("gmessg",gmessagesx);
+          // console.log("gmessg",gmessagesx);
           io.in(socket.room).emit("group_post_new_message",{new_message:gmessagesx});
           // setTimeout(send,3000);
         });

@@ -42,7 +42,7 @@ module.exports = {
         // for(var i = 0; i < data.length; i++){
         //   callback({sentby:data[i].user.name,message:data[i].message});
         // }
-        console.log(data);
+        // console.log(data);
         callback(data);
       })
     },

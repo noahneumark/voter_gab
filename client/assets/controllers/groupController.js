@@ -14,4 +14,19 @@ app.controller('GroupController', ['$scope', '$routeParams', '$location', 'Group
     })
   }
   getUser();
+  $scope.grouped = false;
+  function groupCheck(){
+      UserFactory.currentUser(function(c_user){
+        $scope.c_user = c_user;
+        for(var i = 0; i < $scope.c_user.memberships.length;i++){
+          if($scope.c_user.memberships[i] == $routeParams.id){
+            $scope.grouped = true;
+            break;
+          }else{
+            console.log('Not in group');
+          }
+        }
+      })
+    }
+    groupCheck();
 }]);
