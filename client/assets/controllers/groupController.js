@@ -63,11 +63,16 @@ app.controller('GroupController', ['$scope', '$routeParams', '$location', 'Group
       $scope.adminUser = user;
     })
   }
-  function getEndorsements() {
-    EndorsementFactory.getGroupsEndorsements(function(user) {
-      $scope.userEndorsements = user;
-    })
-  }
+  //function getGroupEndorsements() {
+  //  GroupFactory.getGroupEndorsements(function(group) {
+  //    $scope.
+  //  })
+  //}
+  //function getEndorsements() {
+  //  EndorsementFactory.getGroupsEndorsements(function(user) {
+  //    $scope.userEndorsements = user;
+  //  })
+  //}
   getUserFollows();
   getUserMemberships();
   getUserAdmins();

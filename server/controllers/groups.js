@@ -77,7 +77,7 @@ module.exports = {
     })
   },
   show: function(req, res) {
-    Group.findOne({_id: req.params.id}).populate('admins').populate('members').populate('followers').exec(function(err, group) {
+    Group.findOne({_id: req.params.id}).populate('admins').populate('members').populate('followers').populate('endorsements').exec(function(err, group) {
       if (err) {
         res.status(400).send('Group not found');
       }
