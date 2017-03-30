@@ -98,37 +98,34 @@
     </div>
     <div class="col-sm-7">
         <div class="col-sm-12">
+          <h3 class="text-white">{{group.name}} chat</h3>
+            <div id="mssg-container">
+              <div id="message_log"></div>
+              <form id="gnew_message">
+                <input type="hidden" value="{{group._id}}" id="message_group">
+                <input type="hidden" value="{{c_user._id}}" id="message_userid">
+                <input type="hidden" value="{{c_user.name}}" id="message_user">
+                <input type="text" id="message" placeholder="Membership is required" class="form-control" ng-if="!c_user.following.includes(group._id)" disabled>
+                <input type="text" id="message" placeholder="MESSAGE..." class="form-control" ng-if="c_user.following.includes(group._id)">
+              </form>
+            </div>
             <script>
             $(document).ready(function(){
-              // console.log(cur_group);
-              var socket = io.connect();
               socket.on('gload_messages',function(data){
-                  console.log(data)
-                // var x = {{group._id}}
-                // $('#error').html('');
-                // current_user = data.current_user;
+                $('#message_log').html(" ");
                 var messages = data.message_list;
-                var list = [];
-                // console.log("LOADED******",messages);
-                // console.log("GRAB ALL",messages);
-                // var messages_thread ="";
                 for(var i =0; i < messages.length;i++){
                   messages_thread = '<p><strong>' + messages[i].user.name + ' : </strong>' + messages[i].message + '</p>';
-                  list.push(messages_thread)
-                // $('#message_log').append(messages_thread);
-              }
-                for(var i = 0; i < list.length; i++){
-                    $('#message_log').append(list[i]);
+                  $('#message_log').append(messages_thread);
                 }
               })
-              // return false;
               $('#gnew_message').submit(function(){
                 socket.emit('group_new_message',{message: $('#message').val(),c_group:$('#message_group').val(),c_user:$('#message_user').val(),c_userid:$('#message_userid').val()});
                 $('#message').val(" ");
                 return false;
               })
               socket.on('group_post_new_message',function(data){
-                console.log("from",data);
+                $('#message_log').html(" ");
                 for(var i = 0 ; i < data.new_message.length;i++){
                   $('#message_log').append('<p><strong>' + data.new_message[i].user.name + ' : </strong>' + data.new_message[i].message + '</p>');
                 }
@@ -151,18 +148,6 @@
               setTimeout(getmssgs,1500);
             })
             </script>
-            <h3 class="text-white">{{group.name}} Chat</h3>
-              <div id="mssg-container">
-                <div id="message_log"></div>
-                <form id="gnew_message">
-                  <input type="hidden" value="{{group._id}}" id="message_group">
-                  <input type="hidden" value="{{c_user._id}}" id="message_userid">
-                  <input type="hidden" value="{{c_user.name}}" id="message_user">
-                  <input type="text" id="message" placeholder="Membership is required" class="form-control" ng-if="!c_user.following.includes(group._id)" disabled>
-                  <input type="text" id="message" placeholder="MESSAGE..." class="form-control" ng-if="c_user.following.includes(group._id)">
-                  <!-- <input type="text" id="message" placeholder="MESSAGE..." class="form-control" > -->
-                </form>
-              </div>
         </div>
     </div>
 </div>

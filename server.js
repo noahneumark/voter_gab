@@ -30,27 +30,47 @@ var server = app.listen( port, function() {
   console.log( `server running on port ${ port }` );
 });
 var messages = [];
-// var clients = [];
-// var io = require('socket.io').listen(server);
 require('./server/config/routes.js')(app,server);
-// // socket listening to connections
-// io.on('connection',function(socket){
-//   // var connected_user = {socket_id:socket.id}
-//   // console.log(connected_user);
-//   //   clients.push(connected_user);
-//     // console.log("CLIENTS : ",clients);
-//     socket.on('new_message',function(data){
-//       // messages.push(d)
-//       messages.unshift(data);
-//       // console.log(messages);
-//       // console.log("***************************** IO CONNECTED *****************************");
-//       var chat = new Chat({user:data.c_user,message:data.message});
-//       chat.save(function(err,data){
-//         console.log(chat);
-//         io.emit("post_new_message",{new_message:data.message,user:data.c_user});
-//       })
-//     })
-//     socket.on('grab_messages',function(){
-//       socket.emit("load_messages",{message_list:messages});
-//     })
-// });
+var chat = require('./server/controllers/chatcontroller.js');
+//SOCKETS
+var messages = [];
+var gmessages = [];
+var groupRoom = [];
+var io = require('socket.io').listen(server);
+// socket listening to connections
+io.on('connection',function(socket){
+  var defaultRoom = 'lobby';
+    socket.on('new_message',function(data){
+      messages.unshift(data);
+      // console.log("***************************** IO CONNECTED *****************************");
+        io.in(socket.room).emit("post_new_message",{new_message:data.message,user:data.c_user});
+      })
+    socket.on('grab_messages',function(){
+      socket.room = defaultRoom;
+      socket.join(defaultRoom);
+      socket.emit("load_messages",{message_list:messages});
+    })
+    socket.on('group_new_message',function(data){
+      // console.log(data);
+      var gmessagesx = [];
+      chat.addmessage(data,function(datax){
+        gmessagesx = datax;
+        io.in(socket.room).emit("group_post_new_message",{new_message:gmessagesx});
+      });
+      })
+    socket.on('ggrab_messages',function(data){
+      var gmessagesx = [];
+      chat.grabmssg(data,function(data){
+        gmessagesx = data;
+        io.in(socket.room).emit("gload_messages",{message_list:gmessagesx});
+      });
+    })
+    socket.on('joingroup',function(data){
+      socket.room = data.cur_group;
+      socket.join(data.cur_group);
+    })
+    socket.on('joinlobby',function(){
+      var defaultRoom = 'lobby';
+      socket.join(defaultRoom);
+    })
+});
