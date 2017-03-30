@@ -60,6 +60,12 @@ app.controller('GroupController', ['$scope', '$routeParams', '$location', 'Group
   }
   function getUserAdmins() {
     GroupFactory.getAdminsGroups(function(user) {
+      var adminList = [];
+      for (var i in user.admin){
+        adminList.push(user.admin[i]._id);
+      }
+      console.log(adminList);
+      $scope.adminList = adminList;
       $scope.adminUser = user;
     })
   }
@@ -82,6 +88,11 @@ app.controller('GroupController', ['$scope', '$routeParams', '$location', 'Group
     else {
       return voteThreshold;
     }
+  }
+  $scope.getMeasureDetails = function(id) {
+    GroupFactory.getMeasureDetails(id, function(measure){
+      $scope.measureDetail = measure;
+    })
   }
   getUserFollows();
   getUserMemberships();
