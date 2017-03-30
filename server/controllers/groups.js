@@ -78,7 +78,7 @@ module.exports = {
     })
   },
   show: function(req, res) {
-    Group.findOne({_id: req.params.id}).populate('admins').populate('members').populate('followers').exec(function(err, group) {
+    Group.findOne({_id: req.params.id}).populate('admins').populate('members').populate('followers').populate('endorsements').exec(function(err, group) {
       if (err) {
         res.status(400).send('Group not found');
       }
@@ -143,6 +143,15 @@ module.exports = {
       User.findOne({_id: req.params.f_id}, function(err, user) {
         user.memberships.push(group._id);
         user.save(function(err) {
+          group.members.push(user._id);
+          group.save(function(err) {
+            if (err) {
+              res.status(400).send('Could not add member');
+            }
+            else {
+              res.sendStatus(200, 'Member was added');
+            }
+          })
         })
       })
     })

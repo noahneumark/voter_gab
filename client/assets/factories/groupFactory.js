@@ -80,7 +80,7 @@ app.factory('GroupFactory', ['$location', '$http', function($location, $http) {
       url: '/groups/' + g_id + '/members/' + f_id + '/add',
       method: 'PUT'
     }).then(function(res) {
-      console.log(res);
+      callback();
     })
   }
   factory.getMeasureDetails = function(id, callback) {
