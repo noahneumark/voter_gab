@@ -81,7 +81,7 @@
               <div id="message_log"></div>
               <form id="new_message">
                 <input type="hidden" value="{{currentUser.name}}" id="message_user">
-                <input type="text" id="message" placeholder="MESSAGE..." class="form-control">
+                <input type="text" id="message" placeholder="{{currentUser.name}}: " class="form-control">
               </form>
             </div>
             <script>
