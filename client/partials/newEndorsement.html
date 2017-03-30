@@ -1,4 +1,41 @@
-<a href='#!/dashboard'>Home</a>
+<div class="row-fluid">
+    <div class="col-sm-12">
+        <nav class="navbar navbar-default">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <a class="navbar-brand"><span class="text-primary">VOTERGAB &mdash; {{currentUser.name}}</span></a>
+                </div>
+                <div class="collapse navbar-collapse">
+                    <ul class="nav navbar-nav pull-left">
+                        <li class="active"><a href="#!/dashboard"><span class="text-info">Dashboard</span></a></li>
+                        <li><a href="#!/groups/all"><span class="text-primary">Find Group</span></a></li>
+                        <li><a href="#!/groups/new"><span class="text-primary">New Group</span></a></li>
+                    </ul>
+                    <ul class="nav navbar-nav pull-right">
+                        <li class="dropdown"><a href="#!/dashboard" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" id="mygroups"><span class="text-primary">My Follows</span> <span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li ng-repeat='group in followUser.following'><a href='#!/groups/show/{{group._id}}'>{{group.name}}</a></li>
+                                <!-- ON HOVER, show {{group.description}} on left? -->
+                            </ul>
+                        </li>
+
+                        <li class="dropdown"><a href="#!/dashboard" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" id="mygroups"><span class="text-primary">My Groups</span> <span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li ng-repeat="group in adminUser.admin"><a href='#!/groups/show/{{group._id}}'>{{group.name}}</a></li>
+                                <li role="separator" class="divider"></li>
+                                <!-- fix line below to separate groups according to admin/member status on navbar -->
+                                <li ng-repeat="group in memberUser.memberships" ng-if="!adminList.includes(group._id)"><a href='#!/groups/show/{{group._id}}'>{{group.name}}</a></li>
+                                <!-- ON HOVER, show {{group.description}} on left? -->
+                            </ul>
+                        </li>
+                        <li><a href="/logout" class="navbar-right"><span class="text-danger">Logout</span></a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </div>
+</div>
+
 <h1>Create a New Endorsement</h1>
 <form name='createEndorsement'>
   <div class='form-group row'>
