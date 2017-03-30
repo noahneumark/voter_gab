@@ -14,4 +14,22 @@ app.controller('GroupController', ['$scope', '$routeParams', '$location', 'Group
     $location.url('/groups/'+id+'/endorsements/new')
   }
   getCurrentUser();
+  function getUserFollows() {
+    GroupFactory.getFollowingGroups(function(user) {
+      $scope.followUser = user;
+    })
+  }
+  function getUserMemberships() {
+    GroupFactory.getMembershipGroups(function(user) {
+      $scope.memberUser = user;
+    })
+  }
+  function getUserAdmins() {
+    GroupFactory.getAdminsGroups(function(user) {
+      $scope.adminUser = user;
+    })
+  }
+  getUserFollows();
+  getUserMemberships();
+  getUserAdmins();
 }]);
