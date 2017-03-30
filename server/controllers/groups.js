@@ -1,6 +1,7 @@
 var mongoose = require('mongoose');
 var Group = mongoose.model('Group');
 var User = mongoose.model('User');
+var request = require('request');
 
 module.exports = {
   index: function(req, res) {
@@ -129,6 +130,12 @@ module.exports = {
       else {
         res.json(data);
       }
+    })
+  },
+  getMeasureDetails: function(req, res){
+    request('http://api.votesmart.org/Measure.getMeasure?key=2f03c2e306be0364519648e3878b6336&measureId='+req.params.id+'&o=JSON', function(error, response, body) {
+      var contents = JSON.parse(body);
+      res.json(contents);
     })
   }
 }
