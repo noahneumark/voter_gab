@@ -120,5 +120,15 @@ module.exports = {
         })
       }
     })
+  },
+  getFollowers: function(req, res) {
+    Group.findOne({_id: req.params.id}).populate('followers').exec(function(err, data) {
+      if (err) {
+        res.status(400).send('Could not fetch group');
+      }
+      else {
+        res.json(data);
+      }
+    })
   }
 }

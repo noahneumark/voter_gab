@@ -67,5 +67,13 @@ app.factory('GroupFactory', ['$location', '$http', function($location, $http) {
       $location.url('/dashboard');
     })
   }
+  factory.getFollowers = function(id, callback) {
+    $http({
+      url: '/groups/' + id + '/followers',
+      method: 'GET'
+    }).then(function(res) {
+      callback(res.data);
+    })
+  }
   return factory;
 }])

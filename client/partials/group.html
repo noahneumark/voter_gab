@@ -37,20 +37,16 @@
 
 <div class="row-fluid">
     <div class="col-sm-12">
-        <button class='btn btn-primary' role='button' ng-click='newEndorsement(group._id)'>Create a new endorsement</button>
+        <button ng-if='isMember(currentUser._id, group.members)' class='btn btn-primary' role='button' ng-click='newEndorsement(group._id)'>Create a new endorsement</button>
+        <!--<button ng-if='isAdmin(currentUser._id, group.admins)' class='btn btn-primary' role='button' ng-click='promoteMember(group._id)'>Add member</button>-->
+        <form ng-if='isAdmin(currentUser._id, group.admins)'>
+          <select class='form-control' ng-model='followerName'>
+            <option ng-repeat='follower in groupFollowers'>{{follower.name}}</option>
+          </select>
+        </form>
         <h2>Name: {{group.name}}</h2>
         <h3>Description: {{group.description}}</h3>
         <table class="table table-bordered table-striped table-hover">
-            <thead>
-                <tr>
-                    <th class="h4">Administrators</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr ng-repeat="admin in group.admins | filter: {name:filter} | orderBy : '-createdAt'">
-                    <td class="h5">{{admin.name}}</a></td>
-                </tr>
-            </tbody>
             <thead>
                 <tr>
                     <th class="h4">Members</th>
