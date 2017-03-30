@@ -43,7 +43,7 @@
 }
 #message_log{
   height: 172px;
-  overflow: scroll;
+  overflow: auto;
   padding:10px;
 }
 html,
@@ -67,6 +67,10 @@ footer {
 }
 .carousel-caption{
     font-size:4rem;
+}
+#mssg-container{
+    border: 1px #E7E7E7 solid;
+    border-radius:3px;
 }
 @media (max-width: 480px) {
     h1{
