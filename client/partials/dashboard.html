@@ -23,7 +23,8 @@
                             <ul class="dropdown-menu">
                                 <li ng-repeat="group in adminUser.admin"><a href='#!/groups/show/{{group._id}}'>{{group.name}}</a></li>
                                 <li role="separator" class="divider"></li>
-                                <li ng-repeat="group in memberUser.memberships" ng-if="!group in adminUser.admin"><a href='#!/groups/show/{{group._id}}'>{{group.name}}</a></li>
+                                <!-- fix line below to separate groups according to admin/member status on navbar -->
+                                <li ng-repeat="group in memberUser.memberships"><a href='#!/groups/show/{{group._id}}'>{{group.name}}</a></li>
                                 <!-- ON HOVER, show {{group.description}} on left? -->
                             </ul>
                         </li>
@@ -50,8 +51,13 @@
                     <td class="h4">{{group.name}}</td>
                     <td class="h4">{{endorsement.title}}</a></td>
                     <td>
-                        <button class='btn btn-success btn-sm' role='button'>YEA</button>
-                        <button class='btn btn-danger btn-sm' role='button'>NAY</button>
+                      <span ng-if='!endorsement.upvotes.includes(currentUser._id) && !endorsement.downvotes.includes(currentUser._id)'>
+                        <button class='btn btn-success btn-sm' role='button' ng-click='voteYea(endorsement._id)'>YEA</button>
+                        <button class='btn btn-danger btn-sm' role='button' ng-click='voteNay(endorsement._id)'>NAY</button>
+                      </span>
+                      <span ng-if='endorsement.upvotes.includes(currentUser._id) || endorsement.downvotes.includes(currentUser._id)'>
+                        <button class='btn btn-primary btn-sm' role='button' disabled>VOTED</button>
+                      </span>
                     </td>
                 </tr>
             </tbody>

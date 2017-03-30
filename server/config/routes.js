@@ -17,9 +17,12 @@ module.exports = function(app,server) {
   app.get('/groups/memberships', groups.memberships);
   app.get('/groups/admins', groups.admins);
   app.put('/groups/:id/follow', groups.follow);
+  app.get('/groups/:id/followers', groups.getFollowers);
   app.put('/groups/:id/unfollow', groups.unfollow);
   app.get('/groups/:id', groups.show);
   app.post('/endorsements', endorsements.get);
+  app.put('/endorsements/:id/yea', endorsements.voteYea);
+  app.put('/endorsements/:id/nay', endorsements.voteNay);
   app.get('/endorsements', endorsements.getGroupsEndorsements);
   app.post('/groups/endorsements/:id/propose', endorsements.propose);
 }

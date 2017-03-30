@@ -9,7 +9,6 @@ app.controller('NewEndorsementController', ['$scope', '$routeParams', 'Endorseme
     var endorsement = {};
     endorsement.title = title;
     endorsement.measureId = measureId;
-    console.log('scope state', $scope.state);
     endorsement.state = $scope.state;
     EndorsementFactory.proposeEndorsement($routeParams.id, endorsement);
   }

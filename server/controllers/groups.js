@@ -14,7 +14,7 @@ module.exports = {
     })
   },
   following: function(req, res) {
-    User.findOne({_id: req.session.user._id}).populate('following').exec(function(err, data) {
+    User.findOne({_id: req.session.user._id}).deepPopulate('following').exec(function(err, data) {
       if (err) {
         res.status(400).send('Could not fetch user data');
       }
@@ -118,6 +118,16 @@ module.exports = {
             res.sendStatus(200, 'User successfully unfollow group');
           }
         })
+      }
+    })
+  },
+  getFollowers: function(req, res) {
+    Group.findOne({_id: req.params.id}).populate('followers').exec(function(err, data) {
+      if (err) {
+        res.status(400).send('Could not fetch group');
+      }
+      else {
+        res.json(data);
       }
     })
   }
