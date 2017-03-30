@@ -43,8 +43,8 @@ app.controller('GroupController', ['$scope', '$routeParams', '$location', 'Group
     }
     return false;
   }
-  $scope.addMember = function(id) {
-    GroupFactory.newMember(id, function() {
+  $scope.addMember = function(followerId, groupId) {
+    GroupFactory.newMember(followerId, groupId, function() {
       console.log('test');
     })
   }
