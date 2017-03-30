@@ -51,7 +51,7 @@
           <select class='form-control' ng-model='followerId'>
             <option ng-repeat='follower in groupFollowers' ng-value='follower._id'>{{follower.name}}</option>
           </select>
-          <button ng-click='addMember(followerId)'>Add member</button>
+          <button ng-click='addMember(followerId, group._id)'>Add member</button>
         </form>
         <h2>Name: {{group.name}}</h2>
         <h3>Description: {{group.description}}</h3>
