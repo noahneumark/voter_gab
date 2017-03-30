@@ -1,4 +1,4 @@
-app.controller('GroupController', ['$scope', '$routeParams', '$location', 'GroupFactory', 'UserFactory', function($scope, $routeParams, $location, GroupFactory, UserFactory) {
+app.controller('GroupController', ['$scope', '$routeParams', '$location', 'GroupFactory', 'UserFactory', 'EndorsementFactory', function($scope, $routeParams, $location, GroupFactory, UserFactory, EndorsementFactory) {
   function show(id) {
     GroupFactory.getGroup(id, function(group) {
       $scope.group = group;
@@ -63,16 +63,22 @@ app.controller('GroupController', ['$scope', '$routeParams', '$location', 'Group
       $scope.adminUser = user;
     })
   }
-  //function getGroupEndorsements() {
-  //  GroupFactory.getGroupEndorsements(function(group) {
-  //    $scope.
-  //  })
-  //}
-  //function getEndorsements() {
-  //  EndorsementFactory.getGroupsEndorsements(function(user) {
-  //    $scope.userEndorsements = user;
-  //  })
-  //}
+  $scope.voteYea = function(id) {
+    EndorsementFactory.yea(id, function() {
+      $location.url('#!/dashboard');
+    });
+  }
+  $scope.voteNay = function(id) {
+    EndorsementFactory.nay(id, function() {
+      $location.url('#!/dashboard');
+    });
+  }
+  $scope.votesNeeded = function(endorsement) {
+    console.log('threshold', endorsement.threshold);
+    console.log('upvotes length', endorsement.upvotes.length);
+    console.log('downvotes length', endorsement.downvotes.length);
+    return (endorsement.threshold - (endorsement.upvotes.length + endorsement.downvotes.length));
+  }
   getUserFollows();
   getUserMemberships();
   getUserAdmins();
