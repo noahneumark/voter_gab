@@ -1,10 +1,48 @@
-<a href='#!/login'>Log In or Register</a>
-<h1>This will be the home page</h1>
-<h4>There will be some information</h4>
-<p>This is the best description ever</p>
-<h1>GROUP ENDORSEMENTS GO HERE</h1>
-<p>Filter group endorsements by most recent activities</p>
-<p>People who participated in endorsement</p>
+<header id="myCarousel" class="carousel slide">
+    <ol class="carousel-indicators">
+        <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+        <li data-target="#myCarousel" data-slide-to="1"></li>
+        <li data-target="#myCarousel" data-slide-to="2"></li>
+    </ol>
+    <div class="carousel-inner">
+        <div class="item active">
+            <img src="../static/images/landing2.png" class="landingimg"/>
+        </div>
+        <div class="item">
+            <img src="../static/images/landing3.jpg" class="landingimg"/>
+            <h1 class="carousel-caption"><span class="text-warning">Connecting people with ideas</span></h1>
+        </div>
+        <div class="item">
+            <img src="../static/images/landing4.jpg" class="landingimg"/>
+            <h1 class="carousel-caption"><span class="text-primary">Vote with dignity</span></h1>
+        </div>
+    </div>
+</header>
+<div class="container">
+    <div class="row">
+        <div class="col-lg-12">
+            <h1>Welcome to Voter Gab!</h1>
+            <h2>Making voting fun.</h2>
+            <a class="btn btn-success" href='#!/login'>Get Started</a>
 
-<h1>Read what our users have said about our website</h1>
-<em>"We're important because everybody says nice things, not because we provide any service" -Noah (CEO of Voter Gab)</em>
+            <br class="h1"/>
+            <h4>Recent Group Endorsements</h4>
+            <h6>Filter group endorsements by most recent activities</h6>
+            <h6>People who participated in endorsement</h6>
+        </div>
+    </div>
+    <footer>
+        <div class="row">
+            <div class="col-lg-12">
+                <hr>
+                <p>Copyright &copy; 2017 N. Neumark, K. Querubin, B. Sung, J. Ho</p>
+            </div>
+        </div>
+    </footer>
+
+</div>
+<script>
+$('.carousel').carousel({
+    interval: 5000 //changes the speed
+})
+</script>
