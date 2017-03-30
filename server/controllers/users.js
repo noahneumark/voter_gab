@@ -47,12 +47,14 @@ module.exports = {
     })
   },
   current: function(req, res) {
-    if (req.session.user) {
-      res.json(req.session.user);
-    }
-    else {
-      res.status(401).send('No user in session');
-    }
+    User.findOne({_id: req.session.user._id}, function(err, user) {
+      if (err) {
+        res.status(401).send('No user in session');
+      }
+      else {
+        res.json(user);
+      }
+    })
   },
   logout: function(req, res) {
     req.session.destroy();
