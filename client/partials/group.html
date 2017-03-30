@@ -108,7 +108,7 @@
       socket.on('group_post_new_message',function(data){
         // console.log("from",data);
         for(var i = 0 ; i < data.new_message.length;i++){
-          $('#message_log').prepend('<p><strong>' + data.new_message[i].user.name + ' : </strong>' + data.new_message[i].message + '</p>');
+          $('#message_log').append('<p><strong>' + data.new_message[i].user.name + ' : </strong>' + data.new_message[i].message + '</p>');
         }
       })
       function connect(){
@@ -127,8 +127,9 @@
         <input type="hidden" value="{{group._id}}" id="message_group">
         <input type="hidden" value="{{c_user._id}}" id="message_userid">
         <input type="hidden" value="{{c_user.name}}" id="message_user">
-        <input type="text" id="message" placeholder="Membership is required" class="form-control" ng-if="grouped == false" disabled>
-        <input type="text" id="message" placeholder="MESSAGE..." class="form-control" ng-if="grouped == true">
+        <input type="text" id="message" placeholder="Membership is required" class="form-control" ng-if="!c_user.following.includes(group._id)" disabled>
+        <input type="text" id="message" placeholder="MESSAGE..." class="form-control" ng-if="c_user.following.includes(group._id)">
+        <!-- <input type="text" id="message" placeholder="MESSAGE..." class="form-control" > -->
       </form>
     </div>
 </div>

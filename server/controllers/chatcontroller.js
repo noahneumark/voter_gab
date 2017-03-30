@@ -16,7 +16,7 @@ module.exports = {
     })
   },
   addmessage : function(data,callback){
-    console.log("the data",data);
+    // console.log("the data",data);
     var the_group = data.c_group;
     // console.log("***************************** IO CONNECTED *****************************");
     var chat = new Chat({user:data.c_userid,message:data.message,_group:data.c_group});

@@ -36,10 +36,12 @@ module.exports = function(app,server) {
       socket.on('new_message',function(data){
         messages.unshift(data);
         // console.log("***************************** IO CONNECTED *****************************");
-          io.emit("post_new_message",{new_message:data.message,user:data.c_user});
+          io.in(socket.room).emit("post_new_message",{new_message:data.message,user:data.c_user});
         })
       socket.on('grab_messages',function(){
-        io.in(defaultRoom).emit("load_messages",{message_list:messages});
+        socket.room = defaultRoom;
+        socket.join(defaultRoom);
+        socket.emit("load_messages",{message_list:messages});
       })
       socket.on('group_new_message',function(data){
         // console.log(data);
