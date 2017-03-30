@@ -59,12 +59,12 @@ app.factory('GroupFactory', ['$location', '$http', function($location, $http) {
       $location.url('/groups/show/' + id);
     })
   }
-  factory.unfollow = function(id) {
+  factory.unfollow = function(id, callback) {
     $http({
       url: '/groups/' + id + '/unfollow',
       method: 'PUT'
     }).then(function(res) {
-      $location.url('/dashboard');
+      callback();
     })
   }
   factory.getFollowers = function(id, callback) {
@@ -74,6 +74,8 @@ app.factory('GroupFactory', ['$location', '$http', function($location, $http) {
     }).then(function(res) {
       callback(res.data);
     })
+  }
+  factory.newMember = function(id, callback) {
   }
   return factory;
 }])

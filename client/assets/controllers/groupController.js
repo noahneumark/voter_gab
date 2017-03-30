@@ -36,7 +36,11 @@ app.controller('GroupController', ['$scope', '$routeParams', '$location', 'Group
     }
     return false;
   }
-  getCurrentUser();
+  $scope.addMember = function(id) {
+    GroupFactory.newMember(id, function() {
+      console.log('test');
+    })
+  }
   function getUserFollows() {
     GroupFactory.getFollowingGroups(function(user) {
       $scope.followUser = user;
@@ -50,6 +54,11 @@ app.controller('GroupController', ['$scope', '$routeParams', '$location', 'Group
   function getUserAdmins() {
     GroupFactory.getAdminsGroups(function(user) {
       $scope.adminUser = user;
+    })
+  }
+  function getEndorsements() {
+    EndorsementFactory.getGroupsEndorsements(function(user) {
+      $scope.userEndorsements = user;
     })
   }
   getUserFollows();

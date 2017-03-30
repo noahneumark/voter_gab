@@ -28,7 +28,8 @@
                             <ul class="dropdown-menu">
                                 <li ng-repeat="group in adminUser.admin"><a href='#!/groups/show/{{group._id}}'>{{group.name}}</a></li>
                                 <li role="separator" class="divider"></li>
-                                <li ng-repeat="group in memberUser.memberships" ng-if="!group in adminUser.admin"><a href='#!/groups/show/{{group._id}}'>{{group.name}}</a></li>
+                                <!-- fix this line again -->
+                                <li ng-repeat="group in memberUser.memberships"><a href='#!/groups/show/{{group._id}}'>{{group.name}}</a></li>
                                 <!-- ON HOVER, show {{group.description}} on left? -->
                             </ul>
                         </li>
@@ -45,17 +46,21 @@
     <div class="col-sm-12">
         <button ng-if='isMember(currentUser._id, group.members)' class='btn btn-primary' role='button' ng-click='newEndorsement(group._id)'>Create a new endorsement</button>
         <!--<button ng-if='isAdmin(currentUser._id, group.admins)' class='btn btn-primary' role='button' ng-click='promoteMember(group._id)'>Add member</button>-->
+        <h2>Add a member</h2>
         <form ng-if='isAdmin(currentUser._id, group.admins)'>
-          <select class='form-control' ng-model='followerName'>
-            <option ng-repeat='follower in groupFollowers'>{{follower.name}}</option>
+          <select class='form-control' ng-model='followerId'>
+            <option ng-repeat='follower in groupFollowers' ng-value='follower._id'>{{follower.name}}</option>
           </select>
+          <button ng-click='addMember(followerId)'>Add member</button>
         </form>
         <h2>Name: {{group.name}}</h2>
         <h3>Description: {{group.description}}</h3>
         <table class="table table-bordered table-striped table-hover">
             <thead>
                 <tr>
-                    <th class="h4">Members</th>
+                  <th>Group</th>
+                  <th>Item</th>
+                  <th>Vote</th>
                 </tr>
             </thead>
             <tbody class="text-primary" ng-repeat='group in userEndorsements.memberships'>
