@@ -1,6 +1,7 @@
 var mongoose = require('mongoose');
 var Group = mongoose.model('Group');
 var User = mongoose.model('User');
+var request = require('request');
 
 module.exports = {
   index: function(req, res) {
@@ -77,7 +78,7 @@ module.exports = {
     })
   },
   show: function(req, res) {
-    Group.findOne({_id: req.params.id}).populate('admins').populate('members').populate('followers').exec(function(err, group) {
+    Group.findOne({_id: req.params.id}).populate('admins').populate('members').populate('followers').populate('endorsements').exec(function(err, group) {
       if (err) {
         res.status(400).send('Group not found');
       }
@@ -131,11 +132,26 @@ module.exports = {
       }
     })
   },
+  getMeasureDetails: function(req, res){
+    request('http://api.votesmart.org/Measure.getMeasure?key=2f03c2e306be0364519648e3878b6336&measureId='+req.params.id+'&o=JSON', function(error, response, body) {
+      var contents = JSON.parse(body);
+      res.json(contents);
+    })
+  },
   addMember: function(req, res) {
     Group.findOne({_id: req.params.g_id}, function(err, group) {
       User.findOne({_id: req.params.f_id}, function(err, user) {
         user.memberships.push(group._id);
         user.save(function(err) {
+          group.members.push(user._id);
+          group.save(function(err) {
+            if (err) {
+              res.status(400).send('Could not add member');
+            }
+            else {
+              res.sendStatus(200, 'Member was added');
+            }
+          })
         })
       })
     })

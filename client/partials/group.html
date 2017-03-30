@@ -29,8 +29,8 @@
                                 <li ng-repeat="group in adminUser.admin"><a href='#!/groups/show/{{group._id}}'>{{group.name}}</a></li>
                                 <li role="separator" class="divider"></li>
                                 <!-- fix this line again -->
-                                <li ng-repeat="group in memberUser.memberships"><a href='#!/groups/show/{{group._id}}'>{{group.name}}</a></li>
-                                <!-- ON HOVER, show {{group.description}} on left? -->
+                                <li ng-repeat="group in memberUser.memberships" ng-if="!adminList.includes(group._id)"><a href='#!/groups/show/{{group._id}}'>{{group.name}}</a></li>
+                                <!-- ON HOVER, show {{group.description}} on left? !group.followers.includes(currentUser._id)-->
                             </ul>
                         </li>
                         <li><a href="/logout" class="navbar-right"><span class="text-danger">Logout</span></a></li>
@@ -50,6 +50,7 @@
     <div class="col-sm-7">
         <button ng-if='isMember(currentUser._id, group.members)' class='btn btn-primary btn-lg' role='button' ng-click='newEndorsement(group._id)'>Create a new endorsement</button>
         <!--<button ng-if='isAdmin(currentUser._id, group.admins)' class='btn btn-primary' role='button' ng-click='promoteMember(group._id)'>Add member</button>-->
+<<<<<<< HEAD
         <div class="col-sm-12">
             <h2>Group Endorsement Feed</h2>
             <ul>
@@ -69,9 +70,25 @@
                     <th>Votes</th>
                     <th>Votes Needed</th>
                     <th>Action</th>
+=======
+        <h2>Add a member</h2>
+        <form ng-if='isAdmin(currentUser._id, group.admins)'>
+          <select class='form-control' ng-model='followerId'>
+            <option ng-repeat='follower in groupFollowers' ng-value='follower._id'>{{follower.name}}</option>
+          </select>
+          <button ng-click='addMember(followerId, group._id)'>Add member</button>
+        </form>
+        <h2>Name: {{group.name}}</h2>
+        <h3>Description: {{group.description}}</h3>
+        <table ng-if='!group.members.includes(currentUser._id)' class="table table-bordered table-striped table-hover">
+            <thead>
+                <tr>
+                  <th>Item</th>
+                  <th>Vote</th>
+                  <th>Votes Needed</th>
                 </tr>
             </thead>
-            <tbody class="text-primary" ng-repeat='group in userEndorsements.memberships'>
+            <tbody class="text-primary">
                 <tr ng-repeat='endorsement in group.endorsements'>
                     <td class="h4">{{endorsement.title}}</a></td>
                     <td>
@@ -95,6 +112,7 @@
                           <button class='btn btn-primary btn-sm' role='button' disabled>VOTED</button>
                         </span>
                     </td>
+                    <td ng-bind='votesNeeded(endorsement)'></td>
                 </tr>
             </tbody>
         </table>
@@ -173,6 +191,7 @@
 
 <div class="row">
     <div class="col-sm-12">
+<<<<<<< HEAD
         <h4>Add a member</h4>
         <form ng-if='isAdmin(currentUser._id, group.admins)'>
           <select class='form-control' ng-model='followerId'>
@@ -181,6 +200,10 @@
           <button ng-click='addMember(followerId)'>Add member</button>
         </form>
 
+=======
+        <button type="button" name="button" ng-click="getMeasureDetails(2144)">pull measure</button>
+        <div>Measure details: {{measureDetail}}</div>
+>>>>>>> d7853ff234c9a9edea9790cb2f0da6b9123c7052
         <h1>To do:</h1>
         <p>Link to add new endorsement, status='pending'</p>
         <p>Admin sets threshold of number of votes required for endorsement</p>
