@@ -1,59 +1,75 @@
-<a href='#!/'>Home</a>
-<h1>Register</h1>
-<form name='register'>
-  <div class='form-group row'>
-    <label class='col-sm-2 col-form-label'>Name:</label>
-    <div class='col-sm-3'>
-      <input class='form-control' type='text' ng-model='newUser.name' ng-minlength='2' required>
+<div class="row-fluid">
+    <div class="col-sm-12">
+        <nav class="navbar navbar-default">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <a class="navbar-brand"><span class="text-primary">VOTERGAB</span></a>
+                </div>
+                <div class="collapse navbar-collapse">
+                    <ul class="nav navbar-nav pull-left">
+                        <li><a href="#!/"><span class="text-info">Home</span></a></li>
+                        <li class="active"><a href="#!/login"><span class="text-info">Register/Login</span></a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <h1>Register</h1>
+        <form name='register'>
+          <div class='form-group row'>
+            <label class='col-sm-2 col-form-label'>Name:</label>
+            <div class='col-sm-3'>
+              <input class='form-control' type='text' ng-model='newUser.name' ng-minlength='2' required>
+            </div>
+            <br class='h1'>
+            <label class='col-sm-2 col-form-label'>Email:</label>
+            <div class='col-sm-3'>
+              <input class='form-control' type='email' ng-model='newUser.email' required>
+            </div>
+            <br class='h1'>
+            <label class='col-sm-2 col-form-label'>State (optional):</label>
+            <div class='col-sm-3'>
+              <input class='form-control' type='text' ng-model='newUser.state'>
+            </div>
+            <br class='h1'>
+            <label class='col-sm-2 col-form-label'>Zip Code:</label>
+            <div class='col-sm-3'>
+              <input class='form-control' type='number' ng-model='newUser.zipCode' required>
+            </div>
+            <br class='h1'>
+            <label class='col-sm-2 col-form-label'>Password:</label>
+            <div class='col-sm-3'>
+              <input class='form-control' type='password' ng-model='newUser.password' required>
+            </div>
+            <br class='h1'>
+            <label class='col-sm-2 col-form-label'>Confirm Password:</label>
+            <div class='col-sm-3'>
+              <input class='form-control' type='password' ng-model='confirmPw' ng-match='newUser.password' required>
+            </div>
+            <br class='h1'>
+            <p class='col-sm-6 col-sm-offset-4'>
+              <button class='btn btn-primary btn-md' ng-click='addUser(newUser)' role='button'>Submit</button>
+              <button class='btn btn-danger btn-md' ng-click='resetForm()' role='button'>Reset</button>
+            </p>
+          </div>
+        </form>
+        <h1>Login</h1>
+        <form name='login'>
+          <div class='form-group row'>
+            <label class='col-sm-2 col-form-label'>Email:</label>
+            <div class='col-sm-3'>
+              <input class='form-control' type='email' ng-model='existingUser.email' ng-minlength='2' required>
+            </div>
+            <br class='h1'>
+            <label class='col-sm-2 col-form-label'>Password:</label>
+            <div class='col-sm-3'>
+              <input class='form-control' type='password' ng-model='existingUser.password' required>
+            </div>
+            <br class='h1'>
+            <p class='col-sm-6 col-sm-offset-4'>
+              <button class='btn btn-primary btn-md' ng-click='userLogin(existingUser)' role='button'>Submit</button>
+              <button class='btn btn-danger btn-md' ng-click='resetForm()' role='button'>Reset</button>
+            </p>
+          </div>
+        </form>
     </div>
-    <br class='h1'>
-    <label class='col-sm-2 col-form-label'>Email:</label>
-    <div class='col-sm-3'>
-      <input class='form-control' type='email' ng-model='newUser.email' required>
-    </div>
-    <br class='h1'>
-    <label class='col-sm-2 col-form-label'>State (optional):</label>
-    <div class='col-sm-3'>
-      <input class='form-control' type='text' ng-model='newUser.state'>
-    </div>
-    <br class='h1'>
-    <label class='col-sm-2 col-form-label'>Zip Code:</label>
-    <div class='col-sm-3'>
-      <input class='form-control' type='number' ng-model='newUser.zipCode' required>
-    </div>
-    <br class='h1'>
-    <label class='col-sm-2 col-form-label'>Password:</label>
-    <div class='col-sm-3'>
-      <input class='form-control' type='password' ng-model='newUser.password' required>
-    </div>
-    <br class='h1'>
-    <label class='col-sm-2 col-form-label'>Confirm Password:</label>
-    <div class='col-sm-3'>
-      <input class='form-control' type='password' ng-model='confirmPw' ng-match='newUser.password' required>
-    </div>
-    <br class='h1'>
-    <p class='col-sm-6 col-sm-offset-4'>
-      <button class='btn btn-primary btn-md' ng-click='addUser(newUser)' role='button'>Submit</button>
-      <button class='btn btn-danger btn-md' ng-click='resetForm()' role='button'>Reset</button>
-    </p>
-  </div>
-</form>
-<h1>Login</h1>
-<form name='login'>
-  <div class='form-group row'>
-    <label class='col-sm-2 col-form-label'>Email:</label>
-    <div class='col-sm-3'>
-      <input class='form-control' type='email' ng-model='existingUser.email' ng-minlength='2' required>
-    </div>
-    <br class='h1'>
-    <label class='col-sm-2 col-form-label'>Password:</label>
-    <div class='col-sm-3'>
-      <input class='form-control' type='password' ng-model='existingUser.password' required>
-    </div>
-    <br class='h1'>
-    <p class='col-sm-6 col-sm-offset-4'>
-      <button class='btn btn-primary btn-md' ng-click='userLogin(existingUser)' role='button'>Submit</button>
-      <button class='btn btn-danger btn-md' ng-click='resetForm()' role='button'>Reset</button>
-    </p>
-  </div>
-</form>
+</div>

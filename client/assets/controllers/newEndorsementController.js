@@ -13,4 +13,7 @@ app.controller('NewEndorsementController', ['$scope', '$routeParams', 'Endorseme
     endorsement.state = $scope.state;
     EndorsementFactory.proposeEndorsement($routeParams.id, endorsement);
   }
+  $scope.reset = function(){
+      $scope.newEndorsement={};
+  }
 }]);
