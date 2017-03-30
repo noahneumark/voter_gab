@@ -1,4 +1,9 @@
-app.controller('NewEndorsementController', ['$scope', '$routeParams', 'EndorsementFactory', function($scope, $routeParams, EndorsementFactory) {
+app.controller('NewEndorsementController', ['$scope', '$routeParams', 'EndorsementFactory', 'UserFactory', function($scope, $routeParams, EndorsementFactory, UserFactory) {
+    function getCurrentUser() {
+      UserFactory.currentUser(function(user) {
+        $scope.currentUser = user;
+      })
+    }
   $scope.getEndorsements = function(endorsements) {
     $scope.state = endorsements.state;
     EndorsementFactory.getEndorsements(endorsements, function(data) {
@@ -15,4 +20,5 @@ app.controller('NewEndorsementController', ['$scope', '$routeParams', 'Endorseme
   $scope.reset = function(){
       $scope.newEndorsement={};
   }
+  getCurrentUser();
 }]);

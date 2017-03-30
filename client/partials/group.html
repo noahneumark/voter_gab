@@ -41,11 +41,11 @@
     </div>
 </div>
 
-<div class="row">
+<div class="row-fluid">
     <div class="col-sm-5">
         <h2 class="text-info">Name: {{group.name}}</h2>
         <h3 class="text-info">{{group.description}}</h3>
-        <h4>Group Admins: <span ng-repeat="admin in group.admins | orderBy : '-createdAt'">{{admin.name}} </span></h4>
+        <h4 class="text-info">Group Admins: <span ng-repeat="admin in group.admins | orderBy : '-createdAt'">{{admin.name}} </span></h4>
     </div>
     <div class="col-sm-7">
         <button ng-if='isMember(currentUser._id, group.members)' class='btn btn-primary btn-md' role='button' ng-click='newEndorsement(group._id)'>Create a new endorsement</button>
@@ -60,7 +60,7 @@
     </div>
 </div>
 
-<div class="row">
+<div class="row-fluid">
     <div class="col-sm-5">
         <table ng-if='!group.members.includes(currentUser._id)' class="table table-bordered table-striped table-hover">
             <thead>
@@ -166,12 +166,12 @@
         </div>
     </div>
 </div>
-<div class="row">
+<div class="row-fluid">
     <div class="col-sm-12">
         <h1>Measure details: {{measureDetail}}</h1>
     </div>
 </div>
-<div class="row">
+<div class="row-fluid">
     <div class="col-sm-12">
         <br class="h1" />
         <h1>To do:</h1>
