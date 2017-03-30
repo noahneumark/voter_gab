@@ -26,6 +26,7 @@ var EndorsementSchema = mongoose.Schema({
   title: {type: String, required: true, minlength: 1},
   state: {type: String, minlength: 2},
   measureId: {type: Number, required: true},
+  threshold: {type: Number},
   _group: {type: Schema.Types.ObjectId, ref: 'Group'},
   upvotes: [{type: Schema.Types.ObjectId, ref: 'User'}],
   downvotes: [{type: Schema.Types.ObjectId, ref: 'User'}],

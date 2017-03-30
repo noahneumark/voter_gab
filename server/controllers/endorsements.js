@@ -18,13 +18,11 @@ module.exports = {
   getGroupsEndorsements: function(req, res) {
     // DP (deep populate)
     //User.find({_id: req.session.user._id}).deepPopulate('memberships.endorsements memberships.upvotes memberships.downvotes')
-    console.log('request session', req.session.user);
     User.findOne({_id: req.session.user._id}).deepPopulate('memberships.endorsements').exec(function(err, data) {
       if (err) {
         res.status(400).send('Could not fetch user');
       }
       else {
-        console.log(data);
         res.json(data);
       }
     })
@@ -55,14 +53,41 @@ module.exports = {
         })
       }
     })
+  },
+  voteYea: function(req, res) {
+    Endorsement.findOne({_id: req.params.id}, function(err, endorsement) {
+      if (err) {
+        res.status(400).send('Could not fetch endorsement');
+      }
+      else {
+        endorsement.upvotes.push(req.session.user._id);
+        endorsement.save(function(err) {
+          if (err) {
+            res.status(400).send('Endorsement was not saved');
+          }
+          else {
+            res.sendStatus(200);
+          }
+        })
+      }
+    })
+  },
+  voteNay: function(req, res) {
+    Endorsement.findOne({_id: req.params.id}, function(err, endorsement) {
+      if (err) {
+        res.status(400).send('Could not fetch endorsement');
+      }
+      else {
+        endorsement.downvotes.push(req.session.user._id);
+        endorsement.save(function(err) {
+          if (err) {
+            res.status(400).send('Endorsement was not saved');
+          }
+          else {
+            res.sendStatus(200);
+          }
+        })
+      }
+    })
   }
 }
-//var EndorsementSchema = mongoose.Schema({
-//  title: {type: String, required: true, minlength: 1},
-//  state: {type: String, minlength: 2},
-//  measureID: {type: Number, required: true},
-//  _group: {type: Schema.Types.ObjectId, ref: 'Group'},
-//  upvotes: [{type: Schema.Types.ObjectId, ref: 'User'}],
-//  downvotes: [{type: Schema.Types.ObjectId, ref: 'User'}],
-//  status: {type: String, required: true, default: 'Pending'}
-//}, {timestamps: true});

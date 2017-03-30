@@ -30,18 +30,27 @@ var server = app.listen( port, function() {
   console.log( `server running on port ${ port }` );
 });
 var messages = [];
-var io = require('socket.io').listen(server);
+// var clients = [];
+// var io = require('socket.io').listen(server);
 require('./server/config/routes.js')(app,server);
-// socket listening to connections
-io.on('connection',function(socket){
-    socket.on('new_message',function(data){
-      // messages.push(d)
-      messages.unshift(data);
-      // console.log(messages);
-      // console.log("***************************** IO CONNECTED *****************************");
-      io.emit("post_new_message",{new_message:data.message,user:data.c_user});
-    })
-    socket.on('grab_messages',function(){
-      socket.emit("load_messages",{message_list:messages});
-    })
-});
+// // socket listening to connections
+// io.on('connection',function(socket){
+//   // var connected_user = {socket_id:socket.id}
+//   // console.log(connected_user);
+//   //   clients.push(connected_user);
+//     // console.log("CLIENTS : ",clients);
+//     socket.on('new_message',function(data){
+//       // messages.push(d)
+//       messages.unshift(data);
+//       // console.log(messages);
+//       // console.log("***************************** IO CONNECTED *****************************");
+//       var chat = new Chat({user:data.c_user,message:data.message});
+//       chat.save(function(err,data){
+//         console.log(chat);
+//         io.emit("post_new_message",{new_message:data.message,user:data.c_user});
+//       })
+//     })
+//     socket.on('grab_messages',function(){
+//       socket.emit("load_messages",{message_list:messages});
+//     })
+// });

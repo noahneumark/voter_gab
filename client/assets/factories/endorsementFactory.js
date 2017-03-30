@@ -28,5 +28,21 @@ app.factory('EndorsementFactory', ['$location', '$http', function($location, $ht
       callback(res.data);
     })
   }
+  factory.yea = function(id, callback) {
+    $http({
+      url: '/endorsements/'+id+'/yea',
+      method: 'PUT',
+    }).then(function(res) {
+      callback();
+    })
+  }
+  factory.nay = function(id) {
+    $http({
+      url: '/endorsements/'+id+'/nay',
+      method: 'PUT',
+    }).then(function(res) {
+      $location.url('/dashboard');
+    })
+  }
   return factory;
 }])
