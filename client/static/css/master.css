@@ -147,6 +147,9 @@ footer {
     .mini_toolbar{
         display:inline-block;
     }
+    .navbar{
+        display:none;
+    }
 }
 @media (min-width:481px) {
     h1{
@@ -167,11 +170,11 @@ footer {
     .form-group{
         margin-bottom:1rem;
     }
-    .mini_toolbar{
-        display:hidden;
+    .navbar{
+        display:none;
     }
 }
-@media (min-width: 961px) {
+@media (min-width: 768px) {
     h1{
         font-size:4rem;
     }
@@ -187,7 +190,10 @@ footer {
     h5{
         font-size:2rem;
     }
-    .mini_toolbar{
-        display:hidden;
+    .mininav{
+        display:none;
+    }
+    .navbar{
+        display:inherit;
     }
 }
