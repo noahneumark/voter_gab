@@ -48,7 +48,7 @@
             </thead>
             <tbody class="text-primary" ng-repeat='group in userEndorsements.memberships'>
                 <tr ng-repeat='endorsement in group.endorsements'>
-                    <td class="h4">{{group.name}}</td>
+                    <td class="h4"><a href="#!/groups/show/{{group._id}}">{{group.name}}</a></td>
                     <td class="h4">{{endorsement.title}}</a></td>
                     <td>
                       <span ng-if='!endorsement.upvotes.includes(currentUser._id) && !endorsement.downvotes.includes(currentUser._id)'>
@@ -69,11 +69,12 @@
     <div class="col-sm-7">
         <div class="col-sm-12">
             <h2>Global Endorsement Feed</h2>
-            <ul>
-                <li class="h4">Endorsement 1 - details....</li>
-                <li class="h4">Endorsement 2 - details....</li>
-                <li class="h4">Endorsement 3 - details....</li>
-            </ul>
+            <p ng-repeat="endorsement in finalizedEndorsements">
+                <span class="h3">{{endorsement.title}}</span> &mdash;
+                <span ng-if="endorsement.status == 'Nay'" class="h4 text-danger">{{endorsement.status}}</span><span ng-if="endorsement.status == 'Yea'"  class="h4 text-success">{{endorsement.status}}</span><br />
+                <a href="#!/groups/show/{{endorsement._group._id}}"><span class="h4 text-info">{{endorsement._group.name}}</span></a>
+            </p>
+
         </div>
         <div class="col-sm-12">
             <br class="h1"/>

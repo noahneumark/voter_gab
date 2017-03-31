@@ -30,6 +30,12 @@ app.controller('DashboardController', ['$scope', '$routeParams', '$location', 'U
       $scope.userEndorsements = user;
     })
   }
+  function getFinalizedEndorsements() {
+    EndorsementFactory.getFinalizedEndorsements(function(endorsements) {
+      $scope.finalizedEndorsements = endorsements;
+    })
+  }
+  getFinalizedEndorsements();
   getCurrentUser();
   getUserFollows();
   getUserMemberships();
