@@ -19,6 +19,9 @@ app.controller('GroupController', ['$scope', '$routeParams', '$location', '$wind
       $scope.groupMembers = members.members;
     })
   }
+  $scope.pendingEndorsements = function(groupId) {
+    //Endorsement
+  }
   getMembers($routeParams.id);
   getFollowers($routeParams.id);
   getCurrentUser();
