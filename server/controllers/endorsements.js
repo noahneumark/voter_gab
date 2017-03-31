@@ -32,23 +32,30 @@ module.exports = {
     })
   },
   propose: function(req, res) {
-    Endorsement.findOne({measureId: req.body.measureId}, function(err, endorsement) {
-      if (!endorsement) {
+    Group.findOne({_id: req.params.id}).populate('endorsements').exec(function(err, group) {
+      var found = false;
+      for (var i in group.endorsements) {
+        if (group.endorsements[i].measureId == req.body.measureId) {
+          found = true;
+        }
+      }
+      if (found == false) {
         var endorsement = new Endorsement(req.body);
         endorsement._group = req.params.id;
-        Group.findOne({_id: req.params.id}, function(err, group) {
-          group.endorsements.push(endorsement._id);
-          endorsement.save(function(err) {
-            group.save(function(err) {
-              if (err) {
-                res.status(400).send("You dun goof'd");
-              }
-              else {
-                res.sendStatus(200);
-              }
-            })
+        group.endorsements.push(endorsement._id);
+        endorsement.save(function(err) {
+          group.save(function(err) {
+            if (err) {
+              res.status(400).send("YOU FUCKED UP LOL");
+            }
+            else {
+              res.sendStatus(200, "AYYYYYYYYYY wus gucci");
+            }
           })
         })
+      }
+      else {
+        res.status(400).send('You are already endorsing this endorsement');
       }
     })
   },

@@ -65,7 +65,8 @@ module.exports = {
                   res.status(400).send('You tried to create a group but failed horribly. l2code');
                 }
                 else {
-                  res.sendStatus(200, 'Group was created successfully');
+                  //res.sendStatus(200, 'Group was created successfully');
+                  res.json(group);
                 }
               })
             })
@@ -106,12 +107,12 @@ module.exports = {
     })
   },
   unfollow: function(req, res) {
-    Group.update({_id: req.params.id}, {$pull: {followers: req.session.user._id}}, function(err, group) {
+    Group.update({_id: req.params.id}, {$pull: {followers: req.session.user._id, members: req.session.user._id, admins: req.session.user._id}}, function(err, group) {
       if (err) {
         res.status(400).send('Could not update group');
       }
       else {
-        User.update({_id: req.session.user._id}, {$pull: {following: req.params.id}}, function(err, user) {
+        User.update({_id: req.session.user._id}, {$pull: {following: req.params.id, memberships: req.params.id, admin: req.params.id}}, function(err, user) {
           if (err) {
             res.status(400).send('Could not update user');
           }
@@ -124,6 +125,16 @@ module.exports = {
   },
   getFollowers: function(req, res) {
     Group.findOne({_id: req.params.id}).populate('followers').exec(function(err, data) {
+      if (err) {
+        res.status(400).send('Could not fetch group');
+      }
+      else {
+        res.json(data);
+      }
+    })
+  },
+  getMembers: function(req, res) {
+    Group.findOne({_id: req.params.id}).populate('members').exec(function(err, data) {
       if (err) {
         res.status(400).send('Could not fetch group');
       }
@@ -150,6 +161,24 @@ module.exports = {
             }
             else {
               res.sendStatus(200, 'Member was added');
+            }
+          })
+        })
+      })
+    })
+  },
+  addAdmin: function(req, res) {
+    Group.findOne({_id: req.params.g_id}, function(err, group) {
+      User.findOne({_id: req.params.m_id}, function(err, user) {
+        user.admin.push(group._id);
+        user.save(function(err) {
+          group.admins.push(user._id);
+          group.save(function(err) {
+            if (err) {
+              res.status(400).send('Could not add admin');
+            }
+            else {
+              res.sendStatus(200, 'Admin was added');
             }
           })
         })

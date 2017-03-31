@@ -7,7 +7,6 @@ app.controller('AllGroupsController', ['$scope', '$routeParams', '$location', 'G
   function getCurrentUser() {
     UserFactory.currentUser(function(user) {
       $scope.currentUser = user;
-      console.log($scope.currentUser);
     })
   }
   function getUserFollows() {

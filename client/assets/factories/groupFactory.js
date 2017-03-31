@@ -40,13 +40,13 @@ app.factory('GroupFactory', ['$location', '$http', function($location, $http) {
       callback(res.data);
     })
   }
-  factory.newGroup = function(group) {
+  factory.newGroup = function(group, callback) {
     $http({
       url: '/groups',
       method: 'POST',
       data: group
     }).then(function(res) {
-      $location.url('/dashboard');
+      $location.url('/groups/show/'+res.data._id);
     }, function(res) {
       console.log(res);
     })
@@ -75,9 +75,25 @@ app.factory('GroupFactory', ['$location', '$http', function($location, $http) {
       callback(res.data);
     })
   }
+  factory.getMembers = function(id, callback) {
+    $http({
+      url: '/groups/' + id + '/members',
+      method: 'GET'
+    }).then(function(res) {
+      callback(res.data);
+    })
+  }
   factory.newMember = function(f_id, g_id, callback) {
     $http({
       url: '/groups/' + g_id + '/members/' + f_id + '/add',
+      method: 'PUT'
+    }).then(function(res) {
+      callback();
+    })
+  }
+  factory.newAdmin = function(m_id, g_id, callback) {
+    $http({
+      url: '/groups/' + g_id + '/admins/' + m_id + '/add',
       method: 'PUT'
     }).then(function(res) {
       callback();

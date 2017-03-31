@@ -38,7 +38,7 @@
                 <th>Item</th>
                 <th>Verdict</th>
               </thead>
-              <tr ng-repeat="endorsement in endorsements | limitTo: 6 | orderBy: '-createdAt'" ng-if="endorsement.status !== 'Pending'">
+              <tr ng-repeat="endorsement in endorsements | orderBy: '-createdAt' | limitTo: 6" ng-if="endorsement.status !== 'Pending'">
                 <td>{{endorsement._group.name}}</td>
                 <td>{{endorsement.title}}</td>
                 <td>{{endorsement.status}}</td>

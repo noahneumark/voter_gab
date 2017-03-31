@@ -38,6 +38,7 @@ app.controller('NewEndorsementController', ['$scope', '$routeParams', 'Endorseme
     $scope.state = endorsements.state;
     EndorsementFactory.getEndorsements(endorsements, function(data) {
       $scope.data = data;
+      getCurrentUser();
     })
   }
   $scope.propose = function(title, measureId) {
@@ -46,6 +47,7 @@ app.controller('NewEndorsementController', ['$scope', '$routeParams', 'Endorseme
     endorsement.measureId = measureId;
     endorsement.state = $scope.state;
     EndorsementFactory.proposeEndorsement($routeParams.id, endorsement);
+    getCurrentUser();
   }
   $scope.reset = function(){
       $scope.newEndorsement={};
