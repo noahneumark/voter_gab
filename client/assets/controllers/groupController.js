@@ -71,21 +71,18 @@ app.controller('GroupController', ['$scope', '$routeParams', '$location', 'Group
   }
   $scope.voteYea = function(id) {
     EndorsementFactory.yea(id, function() {
-      $location.url('#!/dashboard');
+      $location.url('#!/groups/show/' + $scope.group._id);
     });
   }
   $scope.voteNay = function(id) {
     EndorsementFactory.nay(id, function() {
-      $location.url('#!/dashboard');
+      $location.url('#!/groups/show/' + $scope.group._id);
     });
   }
   $scope.votesNeeded = function(endorsement) {
     var votesNeeded = 0;
     var voteCount = endorsement.upvotes.length + endorsement.downvotes.length;
     votesNeeded = Math.ceil($scope.group.quorum * $scope.group.members.length) - (voteCount);
-    console.log($scope.group.quorum);
-    console.log($scope.group.members.length);
-    console.log($scope.group.quorum);
     if (votesNeeded < 0) {
       return 0;
     }
@@ -100,7 +97,8 @@ app.controller('GroupController', ['$scope', '$routeParams', '$location', 'Group
   }
   $scope.finalize = function(id) {
     EndorsementFactory.finalizeEndorsement(id, function() {
-      console.log('finalized');
+      console.log('sup');
+      $location.url('/groups/show/' + $scope.group._id);
     })
   }
   getUserFollows();

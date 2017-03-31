@@ -36,12 +36,12 @@ app.factory('EndorsementFactory', ['$location', '$http', function($location, $ht
       callback();
     })
   }
-  factory.nay = function(id) {
+  factory.nay = function(id, callback) {
     $http({
       url: '/endorsements/'+id+'/nay',
       method: 'PUT',
     }).then(function(res) {
-      $location.url('/dashboard');
+      callback();
     })
   }
   factory.finalizeEndorsement = function(id, callback) {
@@ -49,6 +49,7 @@ app.factory('EndorsementFactory', ['$location', '$http', function($location, $ht
       url: '/endorsements/'+id+'/finalize',
       method: 'PUT'
     }).then(function(res) {
+      console.log('hey');
       callback();
     })
   }
