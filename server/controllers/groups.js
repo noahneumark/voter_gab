@@ -133,6 +133,16 @@ module.exports = {
       }
     })
   },
+  getMembers: function(req, res) {
+    Group.findOne({_id: req.params.id}).populate('members').exec(function(err, data) {
+      if (err) {
+        res.status(400).send('Could not fetch group');
+      }
+      else {
+        res.json(data);
+      }
+    })
+  },
   getMeasureDetails: function(req, res){
     request('http://api.votesmart.org/Measure.getMeasure?key=2f03c2e306be0364519648e3878b6336&measureId='+req.params.id+'&o=JSON', function(error, response, body) {
       var contents = JSON.parse(body);
@@ -151,6 +161,24 @@ module.exports = {
             }
             else {
               res.sendStatus(200, 'Member was added');
+            }
+          })
+        })
+      })
+    })
+  },
+  addAdmin: function(req, res) {
+    Group.findOne({_id: req.params.g_id}, function(err, group) {
+      User.findOne({_id: req.params.m_id}, function(err, user) {
+        user.admin.push(group._id);
+        user.save(function(err) {
+          group.admins.push(user._id);
+          group.save(function(err) {
+            if (err) {
+              res.status(400).send('Could not add admin');
+            }
+            else {
+              res.sendStatus(200, 'Admin was added');
             }
           })
         })

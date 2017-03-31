@@ -74,6 +74,23 @@
                     </table>
                 </form>
             </div>
+            <div class="col-sm-12">
+                <form ng-if='isAdmin(currentUser._id, group.admins)'>
+                    <h4>Add an admin</h4>
+                    <table class="table">
+                        <tr>
+                            <td>
+                                <select class='form-control' ng-model='memberId'>
+                                  <option ng-repeat='member in groupMembers' ng-if='!isAdmin(member._id, group.admins)' ng-value='member._id'>{{member.name}}</option>
+                                </select>
+                            </td>
+                            <td>
+                                <button class="btn btn-sm btn-success" ng-click='addAdmin(memberId, group._id)'>Add admin</button>
+                            </td>
+                        </tr>
+                    </table>
+                </form>
+            </div>
         </div>
     </div>
 </div>
