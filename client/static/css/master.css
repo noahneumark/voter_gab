@@ -51,12 +51,12 @@ body {
     height: 100%;
 }
 .carousel {
-    height: 10%;
+    height: 50%;
 }
 .item,
 .active,
 .carousel-inner {
-    height:50%;
+    height:30%;
 }
 footer {
     margin: 50px 0;
@@ -88,6 +88,9 @@ footer {
     h5{
         font-size:1rem;
     }
+    .form-group{
+        margin-bottom:1rem;
+    }
 }
 @media (min-width:481px) {
     h1{
@@ -104,6 +107,9 @@ footer {
     }
     h5{
         font-size:1.5rem;
+    }
+    .form-group{
+        margin-bottom:1rem;
     }
 }
 @media (min-width: 961px) {
