@@ -12,14 +12,14 @@
                         <li class="active"><a href="#!/groups/new"><span class="text-info">New Group</span></a></li>
                     </ul>
                     <ul class="nav navbar-nav pull-right">
-                        <li class="dropdown"><a href="#!/dashboard" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" id="mygroups"><span class="text-primary">My Follows</span> <span class="caret"></span></a>
+                        <li class="dropdown"><a href="#!/groups/new" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" id="mygroups"><span class="text-primary">My Follows</span> <span class="caret"></span></a>
                             <ul class="dropdown-menu">
                                 <li ng-repeat='group in followUser.following'><a href='#!/groups/show/{{group._id}}'>{{group.name}}</a></li>
                                 <!-- ON HOVER, show {{group.description}} on left? -->
                             </ul>
                         </li>
 
-                        <li class="dropdown"><a href="#!/dashboard" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" id="mygroups"><span class="text-primary">My Groups</span> <span class="caret"></span></a>
+                        <li class="dropdown"><a href="#!/groups/new" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" id="mygroups"><span class="text-primary">My Groups</span> <span class="caret"></span></a>
                             <ul class="dropdown-menu">
                                 <li ng-repeat="group in adminUser.admin"><a href='#!/groups/show/{{group._id}}'>{{group.name}}</a></li>
                                 <li role="separator" class="divider"></li>
@@ -40,7 +40,7 @@
         <form name='createGroup'>
             <div class='form-group row'>
                 <label class='col-sm-2 col-form-label h3'>Name:</label>
-                <div class='col-sm-3 h3'>
+                <div class='col-lg-4 h3'>
                     <input class='form-control' type='text' ng-model='newGroup.name' ng-minlength='2' required>
                 </div>
             </div>

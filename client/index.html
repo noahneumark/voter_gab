@@ -26,18 +26,6 @@
     <script type='text/javascript' src='/socket.io/socket.io.js'></script>
     <script type='text/javascript' src='../static/js/message.js'></script>
     <script src='assets/factories/endorsementFactory.js' charset='utf-8'></script>
-    <!-- <script>
-    $(document).ready(function(){
-        $('.nav li a').click(function(e) {
-            $('.nav li').removeClass('active');
-            var $parent = $(this).parent();
-            if (!$parent.hasClass('active')) {
-               $parent.addClass('active');
-            }
-        });
-    });
-    </script> -->
-    <!-- ABOVE CODE NOT NECESSARY..YET -->
     <script>
         $(document).ready(function() {
             $(".nav li.disabled a").click(function() {
@@ -49,5 +37,8 @@
         <div class="container" ng-view="">
 
         </div>
+        <script>
+            var socket = io.connect();
+        </script>
 	</body>
 </html>

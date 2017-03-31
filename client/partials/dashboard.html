@@ -77,22 +77,24 @@
         </div>
         <div class="col-sm-12">
           <h3 class="text-white">Global Chat</h3>
-          <!-- <h1 class="text-primary lead">Lobby Chat</h2> -->
+            <div id="mssg-container">
+              <div id="message_log"></div>
+              <form id="new_message">
+                <input type="hidden" value="{{currentUser.name}}" id="message_user">
+                <input type="text" id="message" placeholder="{{currentUser.name}}: " class="form-control">
+              </form>
+            </div>
             <script>
             $(document).ready(function(){
-              var socket = io.connect();
-              socket.emit('joinlobby');
               socket.emit('grab_messages');
               socket.on('load_messages',function(data){
-                // $('#error').html('');
-                // current_user = data.current_user;
                 var messages = data.message_list;
-                // console.log("GRAB ALL",messages);
-                // var messages_thread ="";
+                $('#message_log').html(" ");
                 for(var i =0; i < messages.length;i++){
                   messages_thread = '<p><strong>' + messages[i].c_user + ' : </strong>' + messages[i].message + '</p>';
                 $('#message_log').append(messages_thread);
               }
+              setTimeout(scrollLog,500);
               })
               // return false;
               $('#new_message').submit(function(){
@@ -101,19 +103,18 @@
                 return false;
               })
               socket.on('post_new_message',function(data){
-                $('#message_log').prepend('<p><strong>' + data.user + ' : </strong>' + data.new_message + '</p>');
+                console.log("post_new_message fired");
+                $('#message_log').append('<p><strong>' + data.user + ' : </strong>' + data.new_message + '</p>');
+                  scrollLog2();
               })
-
+              function scrollLog2(){
+                $("#message_log").scrollTop($("#message_log")[0].scrollHeight);
+              }
             })
-
+            function scrollLog(){
+              $("#message_log").animate({ scrollTop: $("#message_log")[0].scrollHeight}, 1000);
+            }
             </script>
-            <div id="mssg-container">
-              <div id="message_log"></div>
-              <form id="new_message">
-                <input type="hidden" value="{{currentUser.name}}" id="message_user">
-                <input type="text" id="message" placeholder="MESSAGE..." class="form-control">
-              </form>
-            </div>
         </div>
     </div>
 </div>

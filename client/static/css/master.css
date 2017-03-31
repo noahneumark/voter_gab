@@ -43,7 +43,7 @@
 }
 #message_log{
   height: 172px;
-  overflow: scroll;
+  overflow: auto;
   padding:10px;
 }
 html,
@@ -66,12 +66,60 @@ footer {
     max-width:1200px;
 }
 .carousel-caption{
-    margin-bottom:-1%;
     font-size:4rem;
 }
+#mssg-container{
+    border: 1px #E7E7E7 solid;
+    border-radius:3px;
+}
 @media (max-width: 480px) {
+    h1{
+        font-size:2.5rem;
+    }
+    h2{
+        font-size:2rem;
+    }
+    h3{
+        font-size:1.5rem;
+    }
+    h4{
+        font-size:1.25rem;
+    }
+    h5{
+        font-size:1rem;
+    }
 }
 @media (min-width:481px) {
+    h1{
+        font-size:3.25rem;
+    }
+    h2{
+        font-size:2.75rem;
+    }
+    h3{
+        font-size:2.25rem;
+    }
+    h4{
+        font-size:1.75rem;
+    }
+    h5{
+        font-size:1.5rem;
+    }
 }
 @media (min-width: 961px) {
+    h1{
+        font-size:4rem;
+    }
+    h2{
+        font-size:3.5rem;
+    }
+    h3{
+        font-size:3rem;
+    }
+    h4{
+        font-size:2.5rem;
+    }
+    h5{
+        font-size:2rem;
+    }
 }
