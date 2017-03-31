@@ -111,7 +111,7 @@ footer {
     font-size:4rem;
 }
 #mssg-container.group-chat{
-    background:rgba(51, 122, 183,0.9);
+    background:rgba(51, 123, 184, 0.6);
     color:white;
     border-radius:3px;
     border:1px solid transparent;
@@ -119,7 +119,7 @@ footer {
 #mssg-container{
     background:transparent;
     color:black;
-    border:1px solid black;
+    border:1px solid #005A82;
     border-radius:3px;
 }
 #groupchat-tit{
