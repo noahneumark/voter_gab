@@ -49,7 +49,7 @@
         <h2>Add a member</h2>
         <form ng-if='isAdmin(currentUser._id, group.admins)'>
           <select class='form-control' ng-model='followerId'>
-            <option ng-repeat='follower in groupFollowers' ng-value='follower._id'>{{follower.name}}</option>
+            <option ng-repeat='follower in groupFollowers' ng-if='!isMember(follower._id, group.members)' ng-value='follower._id'>{{follower.name}}</option>
           </select>
           <button ng-click='addMember(followerId, group._id)'>Add member</button>
         </form>
@@ -61,6 +61,7 @@
                   <th>Item</th>
                   <th>Vote</th>
                   <th>Votes Needed</th>
+                  <th>Actions</th>
                 </tr>
             </thead>
             <tbody class="text-primary">
@@ -76,6 +77,9 @@
                       </span>
                     </td>
                     <td ng-bind='votesNeeded(endorsement)'></td>
+                    <td ng-if='votesNeeded(endorsement) == 0 && isAdmin(currentUser._id, group.admins)'>
+                      <button ng-click='finalize(endorsement._id)' class='btn btn-primary btn-sm' role='button'>Finalize</button>
+                    </td>
                 </tr>
             </tbody>
         </table>

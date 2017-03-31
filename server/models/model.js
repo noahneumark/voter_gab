@@ -16,6 +16,7 @@ var UserSchema = mongoose.Schema({
 var GroupSchema = mongoose.Schema({
   name: {type: String, required: true, minlength: 2},
   description: {type: String, required: true, minlength: 1},
+  quorum: {type: Number, default: 0.6},
   admins: [{type: Schema.Types.ObjectId, ref: 'User'}],
   members: [{type: Schema.Types.ObjectId, ref: 'User'}],
   followers: [{type: Schema.Types.ObjectId, ref: 'User'}],
@@ -26,7 +27,6 @@ var EndorsementSchema = mongoose.Schema({
   title: {type: String, required: true, minlength: 1},
   state: {type: String, minlength: 2},
   measureId: {type: Number, required: true},
-  threshold: {type: Number, default: 10},
   _group: {type: Schema.Types.ObjectId, ref: 'Group'},
   upvotes: [{type: Schema.Types.ObjectId, ref: 'User'}],
   downvotes: [{type: Schema.Types.ObjectId, ref: 'User'}],

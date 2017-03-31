@@ -89,5 +89,44 @@ module.exports = {
         })
       }
     })
+  },
+  finalize: function(req, res) {
+    Endorsement.findOne({_id: req.params.id}, function(err, endorsement) {
+      if (err) {
+        res.status(400).send('Could not fetch endorsement');
+      }
+      else {
+        if (endorsement.upvotes.length > endorsement.downvotes.length) {
+          endorsement.update({$set: {status: 'Yea'}}, function(err) {
+            if (err) {
+              res.status(400).send('Endorsement got fucked up');
+            }
+            else {
+              res.sendStatus(200);
+            }
+          })
+        }
+        else if (endorsement.downvotes.length > endorsement.upvotes.length) {
+          endorsement.update({$set: {status: 'Nay'}}, function(err) {
+            if (err) {
+              res.status(400).send('Endorsement got fucked up');
+            }
+            else {
+              res.sendStatus(200);
+            }
+          })
+        }
+        else {
+          endorsement.update({$set: {status: 'Neutral'}}, function(err) {
+            if (err) {
+              res.status(400).send('Endorsement got fucked up');
+            }
+            else {
+              res.sendStatus(200);
+            }
+          })
+        }
+      }
+    })
   }
 }

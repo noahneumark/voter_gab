@@ -24,6 +24,7 @@ module.exports = function(app,server) {
   app.post('/endorsements', endorsements.get);
   app.put('/endorsements/:id/yea', endorsements.voteYea);
   app.put('/endorsements/:id/nay', endorsements.voteNay);
+  app.put('/endorsements/:id/finalize', endorsements.finalize);
   app.get('/endorsements', endorsements.getGroupsEndorsements);
   app.post('/groups/endorsements/:id/propose', endorsements.propose);
   app.get('/groups/measure/:id', groups.getMeasureDetails);

@@ -80,18 +80,27 @@ app.controller('GroupController', ['$scope', '$routeParams', '$location', 'Group
     });
   }
   $scope.votesNeeded = function(endorsement) {
-    var voteThreshold = 0;
-    voteThreshold = (endorsement.threshold - (endorsement.upvotes.length + endorsement.downvotes.length));
-    if (voteThreshold < 0) {
+    var votesNeeded = 0;
+    var voteCount = endorsement.upvotes.length + endorsement.downvotes.length;
+    votesNeeded = Math.ceil($scope.group.quorum * $scope.group.members.length) - (voteCount);
+    console.log($scope.group.quorum);
+    console.log($scope.group.members.length);
+    console.log($scope.group.quorum);
+    if (votesNeeded < 0) {
       return 0;
     }
     else {
-      return voteThreshold;
+      return votesNeeded;
     }
   }
   $scope.getMeasureDetails = function(id) {
     GroupFactory.getMeasureDetails(id, function(measure){
       $scope.measureDetail = measure;
+    })
+  }
+  $scope.finalize = function(id) {
+    EndorsementFactory.finalizeEndorsement(id, function() {
+      console.log('finalized');
     })
   }
   getUserFollows();
