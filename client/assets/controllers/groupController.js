@@ -1,4 +1,4 @@
-app.controller('GroupController', ['$scope', '$routeParams', '$location', 'GroupFactory', 'UserFactory', 'EndorsementFactory', function($scope, $routeParams, $location, GroupFactory, UserFactory, EndorsementFactory) {
+app.controller('GroupController', ['$scope', '$routeParams', '$location', '$window', 'GroupFactory', 'UserFactory', 'EndorsementFactory', function($scope, $routeParams, $location, $window, GroupFactory, UserFactory, EndorsementFactory) {
   function show(id) {
     GroupFactory.getGroup(id, function(group) {
       $scope.group = group;
@@ -23,7 +23,6 @@ app.controller('GroupController', ['$scope', '$routeParams', '$location', 'Group
   function getUser(){
     UserFactory.currentUser(function(c_user){
       $scope.c_user = c_user;
-      console.log($scope.c_user);
     })
   }
   getUser();
@@ -64,7 +63,6 @@ app.controller('GroupController', ['$scope', '$routeParams', '$location', 'Group
       for (var i in user.admin){
         adminList.push(user.admin[i]._id);
       }
-      console.log(adminList);
       $scope.adminList = adminList;
       $scope.adminUser = user;
     })
@@ -95,10 +93,9 @@ app.controller('GroupController', ['$scope', '$routeParams', '$location', 'Group
       $scope.measureDetail = measure;
     })
   }
-  $scope.finalize = function(id) {
+  $scope.finalize = function(id, g_id) {
     EndorsementFactory.finalizeEndorsement(id, function() {
-      console.log('sup');
-      $location.url('/groups/show/' + $scope.group._id);
+      show(g_id);
     })
   }
   getUserFollows();

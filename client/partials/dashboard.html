@@ -64,16 +64,14 @@
           </table>
     </div>
     <div class="col-sm-7">
-        <h2>Global Endorsement Feed</h2>
-        <h5 ng-if='finalizedEndorsements.length == 0'>No endorsements to show</h5>
-        <div ng-if='finalizedEndorsements.length > 0' class="col-sm-12 pre-scrollable">
-            <p ng-repeat="endorsement in finalizedEndorsements | orderBy: '-createdAt'" ng-if="endorsement.status !== 'Pending'">
-            <span class="h5">{{endorsement.createdAt | date: 'MMMM d, yyyy'}}</span><br>
-                <span class="h4">{{endorsement.title}}</span> &mdash;
+        <div class="col-sm-12">
+            <h2>Recent Endorsements</h2>
+            <p ng-repeat="endorsement in endorsements | limitTo: 5 | orderBy: '-createdAt'" ng-if="endorsement.status !== 'Pending'">
+                <span class="h4">{{endorsement.title}}</span><br />
+                <a href="#!/groups/show/{{endorsement._group._id}}"><span class="h4 text-info">{{endorsement._group.name}}:</span></a> 
                 <span ng-if="endorsement.status == 'Nay'" class="h4 text-danger">{{endorsement.status}}</span>
                 <span ng-if="endorsement.status == 'Yea'"  class="h4 text-success">{{endorsement.status}}</span>
                 <span ng-if="endorsement.status == 'Neutral'"  class="h4 text-warning">{{endorsement.status}}</span><br/>
-                <a href="#!/groups/show/{{endorsement._group._id}}"><span class="h4 text-info">{{endorsement._group.name}}</span></a>
             </p>
 
         </div>
