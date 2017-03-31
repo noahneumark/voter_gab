@@ -50,24 +50,22 @@
     <div class="col-sm-7">
         <button ng-if='isMember(currentUser._id, group.members)' class='btn btn-primary btn-md' role='button' ng-click='newEndorsement(group._id)'>Create a new endorsement</button>
         <!--<button ng-if='isAdmin(currentUser._id, group.admins)' class='btn btn-primary' role='button' ng-click='promoteMember(group._id)'>Add member</button>-->
-        <div class="col-sm-12">
-            <h2>Group Endorsement Feed</h2>
-            <ul>
-                <li class="h4">Endorsement 1 - details....</li>
-                <li class="h4">Endorsement 2 - details....</li>
-            </ul>
-        </div>
-    </div>
-</div>
-
-<div class="row-fluid">
-    <div class="col-sm-5">
+        <h2>Add a member</h2>
+        <form ng-if='isAdmin(currentUser._id, group.admins)'>
+          <select class='form-control' ng-model='followerId'>
+            <option ng-repeat='follower in groupFollowers' ng-if='!isMember(follower._id, group.members)' ng-value='follower._id'>{{follower.name}}</option>
+          </select>
+          <button ng-click='addMember(followerId, group._id)'>Add member</button>
+        </form>
+        <h2>Name: {{group.name}}</h2>
+        <h3>Description: {{group.description}}</h3>
         <table ng-if='!group.members.includes(currentUser._id)' class="table table-bordered table-striped table-hover">
             <thead>
                 <tr>
                   <th>Item</th>
                   <th>Vote</th>
                   <th>Votes Needed</th>
+                  <th>Actions</th>
                 </tr>
             </thead>
             <tbody class="text-primary">
@@ -83,6 +81,9 @@
                         </span>
                     </td>
                     <td ng-bind='votesNeeded(endorsement)'></td>
+                    <td ng-if='votesNeeded(endorsement) == 0 && isAdmin(currentUser._id, group.admins)'>
+                      <button ng-click='finalize(endorsement._id)' class='btn btn-primary btn-sm' role='button'>Finalize</button>
+                    </td>
                 </tr>
             </tbody>
         </table>

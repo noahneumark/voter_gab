@@ -44,5 +44,13 @@ app.factory('EndorsementFactory', ['$location', '$http', function($location, $ht
       $location.url('/dashboard');
     })
   }
+  factory.finalizeEndorsement = function(id, callback) {
+    $http({
+      url: '/endorsements/'+id+'/finalize',
+      method: 'PUT'
+    }).then(function(res) {
+      callback();
+    })
+  }
   return factory;
 }])
