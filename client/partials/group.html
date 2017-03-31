@@ -80,11 +80,11 @@
 <div class="row-fluid">
     <div class="col-sm-5">
         <h3>Pending Endorsements</h3>
-        <table ng-if='!group.members.includes(currentUser._id)' class="table table-bordered table-striped table-hover">
+        <table class="table table-bordered table-striped table-hover">
             <thead>
                 <tr>
                   <th class="h4">Item</th>
-                  <th class="h4">Vote</th>
+                  <th ng-if='isMember(currentUser._id, group.members)' class="h4">Vote</th>
                   <th class="h4">Votes Needed</th>
                   <th class="h4" ng-if='isAdmin(currentUser._id, group.admins)'>Finalize Vote</th>
                 </tr>
@@ -92,7 +92,7 @@
             <tbody class="text-primary">
                 <tr ng-repeat='endorsement in group.endorsements' ng-if="endorsement.status == 'Pending'">
                     <td class="h4">{{endorsement.title}}</td>
-                    <td>
+                    <td ng-if='isMember(currentUser._id, group.members)'>
                         <span ng-if='!endorsement.upvotes.includes(currentUser._id) && !endorsement.downvotes.includes(currentUser._id)'>
                           <button class='btn btn-success btn-sm' role='button' ng-click='voteYea(endorsement._id)'>YEA</button>
                           <button class='btn btn-danger btn-sm' role='button' ng-click='voteNay(endorsement._id)'>NAY</button>
