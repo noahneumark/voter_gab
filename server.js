@@ -39,11 +39,13 @@ var groupRoom = [];
 var io = require('socket.io').listen(server);
 // socket listening to connections
 io.on('connection',function(socket){
+  console.log('connected');
   var defaultRoom = 'lobby';
     socket.on('new_message',function(data){
-      messages.unshift(data);
+      messages.push(data);
       // console.log("***************************** IO CONNECTED *****************************");
-        io.in(socket.room).emit("post_new_message",{new_message:data.message,user:data.c_user});
+        // io.in(socket.room).emit("post_new_message",{new_message:data.message,user:data.c_user});
+        io.in(socket.room).emit("load_messages",{message_list:messages});
       })
     socket.on('grab_messages',function(){
       socket.room = defaultRoom;
@@ -66,10 +68,12 @@ io.on('connection',function(socket){
       });
     })
     socket.on('joingroup',function(data){
+      socket.leave(socket.room);
       socket.room = data.cur_group;
       socket.join(data.cur_group);
     })
     socket.on('joinlobby',function(){
+      socket.leave(socket.room);
       var defaultRoom = 'lobby';
       socket.join(defaultRoom);
     })

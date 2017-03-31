@@ -93,8 +93,8 @@
                 for(var i =0; i < messages.length;i++){
                   messages_thread = '<p><strong>' + messages[i].c_user + ' : </strong>' + messages[i].message + '</p>';
                 $('#message_log').append(messages_thread);
-                console.log('added to list')
               }
+              setTimeout(scrollLog,500);
               })
               // return false;
               $('#new_message').submit(function(){
@@ -103,10 +103,17 @@
                 return false;
               })
               socket.on('post_new_message',function(data){
-                $('#message_log').prepend('<p><strong>' + data.user + ' : </strong>' + data.new_message + '</p>');
+                console.log("post_new_message fired");
+                $('#message_log').append('<p><strong>' + data.user + ' : </strong>' + data.new_message + '</p>');
+                  scrollLog2();
               })
+              function scrollLog2(){
+                $("#message_log").scrollTop($("#message_log")[0].scrollHeight);
+              }
             })
-
+            function scrollLog(){
+              $("#message_log").animate({ scrollTop: $("#message_log")[0].scrollHeight}, 1000);
+            }
             </script>
         </div>
     </div>
