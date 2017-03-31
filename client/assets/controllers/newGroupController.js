@@ -21,6 +21,11 @@ app.controller('NewGroupController', ['$scope', '$routeParams', 'UserFactory', '
   }
   function getUserAdmins() {
     GroupFactory.getAdminsGroups(function(user) {
+      var adminList = [];
+      for (var i in user.admin){
+        adminList.push(user.admin[i]._id);
+      }
+      $scope.adminList = adminList;
       $scope.adminUser = user;
     })
   }
