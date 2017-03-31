@@ -6,12 +6,13 @@ var User = mongoose.model('User');
 
 module.exports = {
   index: function(req, res) {
-    Endorsement.find({}, function(err, users) {
+    Endorsement.find({}).populate('_group').exec(function(err, endorsements) {
+      console.log('hi im here');
       if (err) {
-        res.status(400).send('Cannot fetch users');
+        res.status(400).send('Fuuuck');
       }
       else {
-        res.json(users);
+        res.json(endorsements);
       }
     })
   },

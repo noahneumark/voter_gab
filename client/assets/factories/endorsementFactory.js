@@ -53,5 +53,13 @@ app.factory('EndorsementFactory', ['$location', '$http', function($location, $ht
       callback();
     })
   }
+  factory.getFinalizedEndorsements = function(callback) {
+    $http({
+      url: '/endorsements/finalized',
+      method: 'GET'
+    }).then(function(res) {
+      callback(res.data);
+    })
+  }
   return factory;
 }])

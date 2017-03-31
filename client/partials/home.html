@@ -15,7 +15,7 @@
         </div>
         <div class="item">
             <img src="../static/images/landing4.jpg" class="landingimg"/>
-            <h1 class="carousel-caption"><span class="text-primary">"There's a lot of dumb people in America. Don't be one of them" -Kelly Leaveck</span></h1>
+            <h1 class="carousel-caption"><span class="text-primary">"There's a lot of dumb people in America. Don't be one of them."<p>-Kelly Leaveck</p></span></h1>
         </div>
         <div class="item">
             <img src="../static/images/landing8.png" class="landingimg"/>
@@ -35,6 +35,18 @@
                     </td>
                     <td>
                         <h3 class="text-danger">Recent Group Endorsements</h3>
+                        <table class='table'>
+                          <thead>
+                            <th>Group Name</th>
+                            <th>Item</th>
+                            <th>Verdict</th>
+                          </thead>
+                          <tr ng-repeat="endorsement in endorsements | limitTo: 6 | orderBy: '-createdAt'" ng-if="endorsement.status !== 'Pending'">
+                            <td>{{endorsement._group.name}}</td>
+                            <td>{{endorsement.title}}</td>
+                            <td>{{endorsement.status}}</td>
+                          </tr>
+                        </table>
                         <h5 class="text-danger">Filter group endorsements by most recent activities</h5>
                         <h5 class="text-danger">People who participated in endorsement</h5>
                     </td>
