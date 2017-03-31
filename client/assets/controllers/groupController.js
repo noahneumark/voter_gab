@@ -45,7 +45,7 @@ app.controller('GroupController', ['$scope', '$routeParams', '$location', 'Group
   }
   $scope.addMember = function(followerId, groupId) {
     GroupFactory.newMember(followerId, groupId, function() {
-      $location.url('/dashboard');
+      show(groupId);
     })
   }
   function getUserFollows() {
