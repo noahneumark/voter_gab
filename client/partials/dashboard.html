@@ -1,3 +1,12 @@
+<div class="row-fluid mininav">
+    <div class="col-sm-12">
+        <h1>VOTERGAB &mdash; Welcome, {{currentUser.name}}!</h1>
+        <a class="btn btn-md btn-primary" href="#!/dashboard">Dashboard</a>
+        <a class="btn btn-md btn-success" href="#!/groups/all">Find Group</a>
+        <a class="btn btn-md btn-success" href="#!/groups/new">New Group</a>
+        <a class="btn btn-md btn-danger" href="/logout">Logout</a>
+    </div>
+</div>
 <div class="row-fluid">
     <div class="col-sm-12">
         <nav class="navbar navbar-default">
@@ -46,7 +55,7 @@
                       <th>Vote</th>
                   </tr>
               </thead>
-              <tbody class="text-primary" ng-repeat='group in userEndorsements.memberships'>
+              <tbody class="text-info" ng-repeat='group in userEndorsements.memberships'>
                   <tr ng-repeat='endorsement in group.endorsements' ng-if="endorsement.status == 'Pending'">
                     <td class="h4"><a href="#!/groups/show/{{group._id}}">{{group.name}}</a></td>
                       <td class="h4"><a data-toggle="modal" ng-click="getMeasureDetails(endorsement.measureId)" data-target="#measureModal">{{endorsement.title}}</a>

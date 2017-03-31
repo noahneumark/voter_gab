@@ -1,3 +1,12 @@
+<div class="row-fluid mininav">
+    <div class="col-sm-12">
+        <h1>VOTERGAB &mdash; Welcome, {{currentUser.name}}!</h1>
+        <a class="btn btn-md btn-primary" href="#!/dashboard">Dashboard</a>
+        <a class="btn btn-md btn-success" href="#!/groups/all">Find Group</a>
+        <a class="btn btn-md btn-success" href="#!/groups/new">New Group</a>
+        <a class="btn btn-md btn-danger" href="/logout">Logout</a>
+    </div>
+</div>
 <div class="row-fluid">
     <div class="col-sm-12">
         <nav class="navbar navbar-default">
@@ -12,11 +21,6 @@
                         <li><a href="#!/groups/new"><span class="text-primary">New Group</span></a></li>
                     </ul>
                     <ul class="nav navbar-nav pull-right">
-                        <li class="dropdown"><a href="#!/groups/show/{{group._id}}" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" id="mygroups"><span class="text-success">Group Members</span> <span class="caret"></span></a>
-                            <ul class="dropdown-menu">
-                                <li ng-repeat='member in group.members'><a href="">{{member.name}}</a></li>
-                            </ul>
-                        </li>
                         <li class="dropdown"><a href="#!/groups/show/{{group._id}}" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" id="mygroups"><span class="text-primary">My Follows</span> <span class="caret"></span></a>
                             <ul class="dropdown-menu">
                                 <li ng-repeat='group in followUser.following'><a href='#!/groups/show/{{group._id}}'>{{group.name}}</a></li>
@@ -49,11 +53,15 @@
             <p><button class="btn btn-sm btn-success" ng-if='isMember(currentUser._id, group.members)' ng-click='newEndorsement(group._id)'>Propose an endorsement</button></p>
         </div>
         <div class="col-sm-7">
-            <div class="col-sm-6">
-                <h6 class="text-info">Admins: <li ng-repeat="admin in group.admins | orderBy : '-createdAt'">{{admin.name}} </li></h6>
+            <br class="h3"/>
+            <div class="col-sm-4">
+                <h6 class="text-primary">Admins: <li ng-repeat="admin in group.admins | orderBy : '-createdAt'">{{admin.name}} </li></h6>
             </div>
-            <div class="col-sm-6">
-                <h6 class="text-info">Members: <li ng-repeat="member in group.members | orderBy : '-createdAt'">{{member.name}} </li></h6>
+            <div class="col-sm-4">
+                <h6 class="text-primary">Members: <li ng-repeat="member in group.members | orderBy : '-createdAt'">{{member.name}} </li></h6>
+            </div>
+            <div class="col-sm-4">
+                <h6 class="text-primary">Followers: <li ng-repeat="follower in group.followers | orderBy : '-createdAt'">{{follower.name}} </li></h6>
             </div>
             <div class="col-sm-12">
                 <form ng-if='isAdmin(currentUser._id, group.admins)'>
@@ -95,7 +103,7 @@
                   <th class="h4" ng-if='isAdmin(currentUser._id, group.admins)'>Finalize Vote</th>
                 </tr>
             </thead>
-            <tbody class="text-primary">
+            <tbody class="text-info">
                 <tr ng-repeat='endorsement in group.endorsements' ng-if="endorsement.status == 'Pending'">
                   <td class="h4"><a data-toggle="modal" ng-click="getMeasureDetails(endorsement.measureId)" data-target="#measureModal">{{endorsement.title}}</a>
                     <div id="measureModal" class="modal fade" role="dialog">
@@ -149,7 +157,7 @@
                     <th class="h4">Result</th>
                   </tr>
               </thead>
-              <tbody class="text-primary">
+              <tbody class="text-info">
                   <tr ng-repeat='endorsement in group.endorsements' ng-if="endorsement.status !== 'Pending'">
                       <td class="h4"><a data-toggle="modal" ng-click="getMeasureDetails(endorsement.measureId)" data-target="#measureModal">{{endorsement.title}}</a></td>
                       <td class="h4">{{(endorsement.upvotes.length/(endorsement.upvotes.length+endorsement.downvotes.length))*100}}%</td>
