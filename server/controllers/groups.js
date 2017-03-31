@@ -65,7 +65,8 @@ module.exports = {
                   res.status(400).send('You tried to create a group but failed horribly. l2code');
                 }
                 else {
-                  res.sendStatus(200, 'Group was created successfully');
+                  //res.sendStatus(200, 'Group was created successfully');
+                  res.json(group);
                 }
               })
             })

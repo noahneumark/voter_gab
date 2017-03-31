@@ -69,7 +69,9 @@
             <p ng-repeat="endorsement in endorsements | limitTo: 5 | orderBy: '-createdAt'" ng-if="endorsement.status !== 'Pending'">
                 <span class="h4">{{endorsement.title}}</span><br />
                 <a href="#!/groups/show/{{endorsement._group._id}}"><span class="h4 text-info">{{endorsement._group.name}}:</span></a> 
-                <span ng-if="endorsement.status == 'Nay'" class="h4 text-danger">{{endorsement.status}}</span><span ng-if="endorsement.status == 'Yea'"  class="h4 text-success">{{endorsement.status}}</span>
+                <span ng-if="endorsement.status == 'Nay'" class="h4 text-danger">{{endorsement.status}}</span>
+                <span ng-if="endorsement.status == 'Yea'"  class="h4 text-success">{{endorsement.status}}</span>
+                <span ng-if="endorsement.status == 'Neutral'"  class="h4 text-warning">{{endorsement.status}}</span><br/>
             </p>
 
         </div>
