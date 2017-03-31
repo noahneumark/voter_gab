@@ -67,6 +67,9 @@
                             <td>
                                 <button class="btn btn-sm btn-success" ng-click='addMember(followerId, group._id)'>Add member</button>
                             </td>
+                          <td>
+                            <button class="btn btn-sm btn-success" ng-click='newEndorsement(group._id)'>Propose an endorsement</button>
+                          </td>
                         </tr>
                     </table>
                 </form>
@@ -115,10 +118,10 @@
           <table ng-if='!group.members.includes(currentUser._id)' class="table table-bordered table-striped table-hover">
               <thead>
                   <tr>
-                    <th>Item</th>
-                    <th>Yea</th>
-                    <th>Nay</th>
-                    <th>Result</th>
+                    <th class="h4">Item</th>
+                    <th class="h4">Yea</th>
+                    <th class="h4">Nay</th>
+                    <th class="h4">Result</th>
                   </tr>
               </thead>
               <tbody class="text-primary">
