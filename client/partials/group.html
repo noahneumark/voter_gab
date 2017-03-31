@@ -103,7 +103,7 @@
                     </td>
                     <td ng-bind='votesNeeded(endorsement)'></td>
                     <td ng-if='votesNeeded(endorsement) == 0 && isAdmin(currentUser._id, group.admins)'>
-                      <button ng-click='finalize(endorsement._id)' class='btn btn-success btn-sm' role='button'>Finalize</button>
+                      <button ng-click='finalize(endorsement._id, group._id)' class='btn btn-success btn-sm' role='button'>Finalize</button>
                     </td>
                     <td ng-if='!votesNeeded(endorsement) == 0 && isAdmin(currentUser._id, group.admins)'>
                       <button class='btn btn-success btn-sm' role='button' disabled>Need More Votes!</button>
