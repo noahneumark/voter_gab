@@ -39,7 +39,6 @@ var groupRoom = [];
 var io = require('socket.io').listen(server);
 // socket listening to connections
 io.on('connection',function(socket){
-  console.log('connected');
   var defaultRoom = 'lobby';
     socket.on('new_message',function(data){
       messages.push(data);

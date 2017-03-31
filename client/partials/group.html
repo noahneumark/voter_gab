@@ -44,8 +44,8 @@
 <div class="row-fluid">
     <div class="col-sm-12">
         <div class="col-sm-5">
-            <h2>{{group.name}}</h2>
-            <h3>{{group.description}}</h3>
+            <h2 style="margin-bottom:0px;">{{group.name}}</h2>
+            <h3 style="font-size:1.5em;margin-top:0;">{{group.description}}</h3>
         </div>
         <div class="col-sm-7">
             <div class="col-sm-6">
@@ -132,8 +132,9 @@
           </table>
         </div>
         <div class="col-sm-12">
-          <h3 class="text-white">{{group.name}} chat</h3>
+          <div id="mssg-bttn"><i class="fa fa-commenting" aria-hidden="true"></i></div>
             <div id="mssg-container">
+              <h3 class="text-white" id="groupchat-tit">{{group.name}} chat</h3>
               <div id="message_log"></div>
               <form id="gnew_message">
                 <input type="hidden" value="{{group._id}}" id="message_group">
@@ -180,6 +181,9 @@
               }
               setTimeout(connect,1500);
               setTimeout(getmssgs,1500);
+              $('#mssg-bttn').click(function(){
+                $('#mssg-container').toggleClass('slideme');
+              })
             })
             </script>
         </div>
