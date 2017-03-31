@@ -7,7 +7,6 @@ var User = mongoose.model('User');
 module.exports = {
   index: function(req, res) {
     Endorsement.find({}).populate('_group').exec(function(err, endorsements) {
-      console.log('hi im here');
       if (err) {
         res.status(400).send('Fuuuck');
       }
@@ -17,8 +16,6 @@ module.exports = {
     })
   },
   getGroupsEndorsements: function(req, res) {
-    // DP (deep populate)
-    //User.find({_id: req.session.user._id}).deepPopulate('memberships.endorsements memberships.upvotes memberships.downvotes')
     User.findOne({_id: req.session.user._id}).deepPopulate('memberships.endorsements').exec(function(err, data) {
       if (err) {
         res.status(400).send('Could not fetch user');
