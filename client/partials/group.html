@@ -97,7 +97,26 @@
             </thead>
             <tbody class="text-primary">
                 <tr ng-repeat='endorsement in group.endorsements' ng-if="endorsement.status == 'Pending'">
-                    <td class="h4">{{endorsement.title}}</td>
+                  <td class="h4"><a data-toggle="modal" ng-click="getMeasureDetails(endorsement.measureId)" data-target="#measureModal">{{endorsement.title}}</a>
+                    <div id="measureModal" class="modal fade" role="dialog">
+                      <div class="modal-dialog">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title">{{measureDetail.measure.title}}</h4>
+                          </div>
+                          <div class="modal-body">
+                            <p>{{measureDetail.measure.summary}}</p>
+                            <p><a href="{{measureDetail.measure.summaryUrl}}" target="new">Summary Text</a></p>
+                            <p><a href="{{measureDetail.measure.textUrl}}" target="new">Full Text</a></p>
+                          </div>
+                          <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </td>
                     <td ng-if='isMember(currentUser._id, group.members)'>
                         <span ng-if='!endorsement.upvotes.includes(currentUser._id) && !endorsement.downvotes.includes(currentUser._id)'>
                           <button class='btn btn-success btn-sm' role='button' ng-click='voteYea(endorsement._id)'>YEA</button>
@@ -132,7 +151,7 @@
               </thead>
               <tbody class="text-primary">
                   <tr ng-repeat='endorsement in group.endorsements' ng-if="endorsement.status !== 'Pending'">
-                      <td class="h4">{{endorsement.title}}</td>
+                      <td class="h4"><a data-toggle="modal" ng-click="getMeasureDetails(endorsement.measureId)" data-target="#measureModal">{{endorsement.title}}</a></td>
                       <td class="h4">{{(endorsement.upvotes.length/(endorsement.upvotes.length+endorsement.downvotes.length))*100}}%</td>
                       <td class="h4">{{(endorsement.downvotes.length/(endorsement.upvotes.length+endorsement.downvotes.length))*100}}%</td>
                       <td class="h4">{{endorsement.status}}</td>
