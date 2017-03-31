@@ -32,7 +32,6 @@ module.exports = {
     })
   },
   propose: function(req, res) {
-    //Group.findOne({_id: req.params.id}, function(err, group) {
     Group.findOne({_id: req.params.id}).populate('endorsements').exec(function(err, group) {
       var found = false;
       for (var i in group.endorsements) {
@@ -58,20 +57,6 @@ module.exports = {
       else {
         res.status(400).send('You are already endorsing this endorsement');
       }
-      //console.log('group endorsements', group.endorsements);
-      //var endorsement = new Endorsement(req.body);
-      //endorsement._group = req.params.id;
-      //group.endorsements.push(endorsement._id);
-      //endorsement.save(function(err) {
-      //  group.save(function(err) {
-      //    if (err) {
-      //      res.status(400).send("You dun goof'd");
-      //    }
-      //    else {
-      //      res.sendStatus(200, 'YASSS');
-      //    }
-      //  })
-      //})
     })
   },
   voteYea: function(req, res) {
