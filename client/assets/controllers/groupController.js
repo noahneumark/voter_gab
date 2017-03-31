@@ -54,6 +54,7 @@ app.controller('GroupController', ['$scope', '$routeParams', '$location', '$wind
   $scope.addMember = function(followerId, groupId) {
     GroupFactory.newMember(followerId, groupId, function() {
       show(groupId);
+      getMembers($routeParams.id);
     })
   }
   $scope.addAdmin = function(memberId, groupId) {
