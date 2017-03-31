@@ -14,6 +14,12 @@ app.controller('GroupController', ['$scope', '$routeParams', '$location', '$wind
       $scope.groupFollowers = followers.followers;
     })
   }
+  function getMembers(id) {
+    GroupFactory.getMembers(id, function(members) {
+      $scope.groupMembers = members.members;
+    })
+  }
+  getMembers($routeParams.id);
   getFollowers($routeParams.id);
   getCurrentUser();
   show($routeParams.id);
@@ -44,6 +50,12 @@ app.controller('GroupController', ['$scope', '$routeParams', '$location', '$wind
   }
   $scope.addMember = function(followerId, groupId) {
     GroupFactory.newMember(followerId, groupId, function() {
+      show(groupId);
+      getMembers($routeParams.id);
+    })
+  }
+  $scope.addAdmin = function(memberId, groupId) {
+    GroupFactory.newAdmin(memberId, groupId, function() {
       show(groupId);
     })
   }

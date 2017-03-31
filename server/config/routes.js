@@ -18,6 +18,7 @@ module.exports = function(app,server) {
   app.get('/groups/admins', groups.admins);
   app.put('/groups/:id/follow', groups.follow);
   app.get('/groups/:id/followers', groups.getFollowers);
+  app.get('/groups/:id/members', groups.getMembers);
   app.put('/groups/:id/unfollow', groups.unfollow);
   app.get('/groups/:id', groups.show);
   app.post('/endorsements', endorsements.get);
@@ -29,4 +30,5 @@ module.exports = function(app,server) {
   app.post('/groups/endorsements/:id/propose', endorsements.propose);
   app.get('/groups/measure/:id', groups.getMeasureDetails);
   app.put('/groups/:g_id/members/:f_id/add', groups.addMember);
+  app.put('/groups/:g_id/admins/:m_id/add', groups.addAdmin);
 }
