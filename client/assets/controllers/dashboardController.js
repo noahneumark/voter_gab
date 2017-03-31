@@ -20,7 +20,6 @@ app.controller('DashboardController', ['$scope', '$routeParams', '$location', 'U
       for (var i in user.admin){
         adminList.push(user.admin[i]._id);
       }
-      console.log(adminList);
       $scope.adminList = adminList;
       $scope.adminUser = user;
     })
