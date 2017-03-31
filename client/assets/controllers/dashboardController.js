@@ -24,11 +24,17 @@ app.controller('DashboardController', ['$scope', '$routeParams', '$location', 'U
       $scope.adminUser = user;
     })
   }
-  function getEndorsements() {
+  function getUserEndorsements() {
     EndorsementFactory.getGroupsEndorsements(function(user) {
       $scope.userEndorsements = user;
     })
   }
+  function getEndorsements() {
+    EndorsementFactory.getFinalizedEndorsements(function(endorsements) {
+      $scope.endorsements = endorsements;
+    })
+  }
+  getEndorsements();
   function getFinalizedEndorsements() {
     EndorsementFactory.getFinalizedEndorsements(function(endorsements) {
       $scope.finalizedEndorsements = endorsements;
@@ -39,6 +45,7 @@ app.controller('DashboardController', ['$scope', '$routeParams', '$location', 'U
   getUserFollows();
   getUserMemberships();
   getUserAdmins();
+  getUserEndorsements();
   getEndorsements();
   $scope.follow = function(id) {
     GroupFactory.follow(id);
