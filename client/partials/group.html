@@ -50,15 +50,13 @@
     <div class="col-sm-7">
         <button ng-if='isMember(currentUser._id, group.members)' class='btn btn-primary btn-md' role='button' ng-click='newEndorsement(group._id)'>Create a new endorsement</button>
         <!--<button ng-if='isAdmin(currentUser._id, group.admins)' class='btn btn-primary' role='button' ng-click='promoteMember(group._id)'>Add member</button>-->
-        <h2>Name: {{group.name}}</h2>
-        <h3>Description: {{group.description}}</h3>
         <table ng-if='!group.members.includes(currentUser._id)' class="table table-bordered table-striped table-hover">
             <thead>
                 <tr>
-                  <th>Item</th>
-                  <th>Vote</th>
-                  <th>Votes Needed</th>
-                  <th>Actions</th>
+                  <th class="h3">Item</th>
+                  <th class="h3">Vote</th>
+                  <th class="h3">Votes Needed</th>
+                  <th class="h3">Finalize Vote</th>
                 </tr>
             </thead>
             <tbody class="text-primary">
@@ -75,7 +73,7 @@
                     </td>
                     <td ng-bind='votesNeeded(endorsement)'></td>
                     <td ng-if='votesNeeded(endorsement) == 0 && isAdmin(currentUser._id, group.admins)'>
-                      <button ng-click='finalize(endorsement._id)' class='btn btn-primary btn-sm' role='button'>Finalize</button>
+                      <button ng-click='finalize(endorsement._id)' class='btn btn-success btn-sm' role='button'>Finalize</button>
                     </td>
                 </tr>
             </tbody>
