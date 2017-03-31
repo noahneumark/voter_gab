@@ -29,7 +29,7 @@ require('./server/config/mongoose.js');
 var server = app.listen( port, function() {
   console.log( `server running on port ${ port }` );
 });
-var messages = [];
+// var messages = [];
 require('./server/config/routes.js')(app,server);
 var chat = require('./server/controllers/chatcontroller.js');
 //SOCKETS
