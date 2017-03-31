@@ -49,7 +49,6 @@ app.factory('EndorsementFactory', ['$location', '$http', function($location, $ht
       url: '/endorsements/'+id+'/finalize',
       method: 'PUT'
     }).then(function(res) {
-      console.log('hey');
       callback();
     })
   }

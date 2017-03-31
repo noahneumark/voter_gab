@@ -40,13 +40,13 @@ app.factory('GroupFactory', ['$location', '$http', function($location, $http) {
       callback(res.data);
     })
   }
-  factory.newGroup = function(group) {
+  factory.newGroup = function(group, callback) {
     $http({
       url: '/groups',
       method: 'POST',
       data: group
     }).then(function(res) {
-      $location.url('/dashboard');
+      $location.url('/groups/show/'+res.data._id);
     }, function(res) {
       console.log(res);
     })
