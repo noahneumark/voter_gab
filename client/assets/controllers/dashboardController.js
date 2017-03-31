@@ -60,4 +60,9 @@ app.controller('DashboardController', ['$scope', '$routeParams', '$location', 'U
       $location.url('#!/dashboard');
     });
   }
+  $scope.getMeasureDetails = function(id) {
+    GroupFactory.getMeasureDetails(id, function(measure){
+      $scope.measureDetail = measure;
+    })
+  }
 }]);
