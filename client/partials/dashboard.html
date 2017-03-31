@@ -86,7 +86,7 @@
         <div class="col-sm-12">
             <h2>Recent Endorsements</h2>
             <div class='pre-scrollable'>
-            <p ng-repeat="endorsement in endorsements | limitTo: 10 | orderBy: '-createdAt'" ng-if="endorsement.status !== 'Pending'">
+            <p ng-repeat="endorsement in endorsements | orderBy: '-createdAt' | limitTo: 10" ng-if="endorsement.status !== 'Pending'">
                 <span class="p">{{endorsement.createdAt | date: 'MMMM d, yyyy'}}</span></br>
                 <a data-toggle="modal" ng-click="getMeasureDetails(endorsement.measureId)" data-target="#measureModal"><span class="h4">{{endorsement.title}}</span></a><br />
                 <a href="#!/groups/show/{{endorsement._group._id}}"><span class="h4 text-info">{{endorsement._group.name}}:</span></a>
