@@ -98,8 +98,8 @@
                 <input type="hidden" value="{{group._id}}" id="message_group">
                 <input type="hidden" value="{{c_user._id}}" id="message_userid">
                 <input type="hidden" value="{{c_user.name}}" id="message_user">
-                <input type="text" id="message" placeholder="Membership is required" class="form-control" ng-if="!c_user.following.includes(group._id)" disabled>
-                <input type="text" id="message" placeholder="{{currentUser.name}}: " class="form-control" ng-if="c_user.following.includes(group._id)">
+                <input type="text" id="message" placeholder="Membership is required" class="form-control" ng-if="!c_user.memberships.includes(group._id)" disabled>
+                <input type="text" id="message" placeholder="{{currentUser.name}}: " class="form-control" ng-if="c_user.memberships.includes(group._id)">
               </form>
             </div>
             <script>
