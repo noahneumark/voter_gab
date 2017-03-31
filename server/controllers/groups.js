@@ -107,12 +107,12 @@ module.exports = {
     })
   },
   unfollow: function(req, res) {
-    Group.update({_id: req.params.id}, {$pull: {followers: req.session.user._id}}, function(err, group) {
+    Group.update({_id: req.params.id}, {$pull: {followers: req.session.user._id, members: req.session.user._id, admins: req.session.user._id}}, function(err, group) {
       if (err) {
         res.status(400).send('Could not update group');
       }
       else {
-        User.update({_id: req.session.user._id}, {$pull: {following: req.params.id}}, function(err, user) {
+        User.update({_id: req.session.user._id}, {$pull: {following: req.params.id, memberships: req.params.id, admin: req.params.id}}, function(err, user) {
           if (err) {
             res.status(400).send('Could not update user');
           }
