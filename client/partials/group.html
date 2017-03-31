@@ -52,6 +52,7 @@
         <!--<button ng-if='isAdmin(currentUser._id, group.admins)' class='btn btn-primary' role='button' ng-click='promoteMember(group._id)'>Add member</button>-->
         <h2>Name: {{group.name}}</h2>
         <h3>Description: {{group.description}}</h3>
+        <h3>Pending Endorsements</h3>
         <table ng-if='!group.members.includes(currentUser._id)' class="table table-bordered table-striped table-hover">
             <thead>
                 <tr>
@@ -62,8 +63,8 @@
                 </tr>
             </thead>
             <tbody class="text-primary">
-                <tr ng-repeat='endorsement in group.endorsements'>
-                    <td class="h4">{{endorsement.title}}</a></td>
+                <tr ng-repeat='endorsement in group.endorsements' ng-if="endorsement.status == 'Pending'">
+                    <td class="h4">{{endorsement.title}}</td>
                     <td>
                         <span ng-if='!endorsement.upvotes.includes(currentUser._id) && !endorsement.downvotes.includes(currentUser._id)'>
                           <button class='btn btn-success btn-sm' role='button' ng-click='voteYea(endorsement._id)'>YEA</button>
@@ -77,6 +78,25 @@
                     <td ng-if='votesNeeded(endorsement) == 0 && isAdmin(currentUser._id, group.admins)'>
                       <button ng-click='finalize(endorsement._id)' class='btn btn-primary btn-sm' role='button'>Finalize</button>
                     </td>
+                </tr>
+            </tbody>
+        </table>
+        <h3>Finalized Endorsements</h3>
+        <table ng-if='!group.members.includes(currentUser._id)' class="table table-bordered table-striped table-hover">
+            <thead>
+                <tr>
+                  <th>Item</th>
+                  <th>Yea</th>
+                  <th>Nay</th>
+                  <th>Result</th>
+                </tr>
+            </thead>
+            <tbody class="text-primary">
+                <tr ng-repeat='endorsement in group.endorsements' ng-if="endorsement.status !== 'Pending'">
+                    <td class="h4">{{endorsement.title}}</td>
+                    <td class="h4">{{(endorsement.upvotes.length/(endorsement.upvotes.length+endorsement.downvotes.length))*100}}%</td>
+                    <td class="h4">{{(endorsement.downvotes.length/(endorsement.upvotes.length+endorsement.downvotes.length))*100}}%</td>
+                    <td class="h4">{{endorsement.status}}</td>
                 </tr>
             </tbody>
         </table>
